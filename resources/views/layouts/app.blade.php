@@ -69,11 +69,11 @@
                 <div id="navbar-user_mobile" class="dropdown-menu user_mobile">
                     <ul class="nav flex-column ">
                         @guest
-                            <li><a href="/user/login/"><i class="fa fa-lock"></i> Вход</a></li>
-                            <li><a href="/user/register/"><i class="fa fa-address-card"></i> Регистрация</a></li>
+                            <li><a href="/login"><i class="fa fa-lock"></i> Вход</a></li>
+                            <li><a href="/register"><i class="fa fa-address-card"></i> Регистрация</a></li>
                         @else
-                            <li><a href="/cabinet/"><i class="fa fa-user"></i> Аккаунт</a></li>
-                            <li><a href="/user/logout/"><i class="fa fa-unlock"></i> Выход</a></li>
+                            <li><a href="/cabinet"><i class="fa fa-user"></i> Аккаунт</a></li>
+                            <li><a href="/logout"><i class="fa fa-unlock"></i> Выход</a></li>
                         @endguest
                     </ul>
                 </div>
@@ -212,11 +212,11 @@
                         <div class="auth noAuth topNavBlock">
                             @guest
                                 <p>
-                                    <a href="/user/register/">Регистрация</a> | <a href="/user/login/">Вход</a>
+                                    <a href="/register/">Регистрация</a> | <a href="/login/">Вход</a>
                                 </p>
                             @else
                             <p>
-                                <a href="/cabinet/"> Аккаунт</a> | <a href="/user/logout/">Выход</a></p>
+                                <a href="/cabinet/"> Аккаунт</a> | <a href="/logout/">Выход</a></p>
                             @endguest
                             <div class="modal_button">
                                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalLong_pc">
@@ -339,7 +339,22 @@
     </div>
     </header>
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                <div class="row">
+                    @yield('content_right')
+                    <div class="col-9" >
+                        <div class="features_items"><!--features_items-->
+                            <div class="Items_Back">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        @yield('content')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     <footer id="footer"><!--Footer-->
         <div class="footer-bottom">

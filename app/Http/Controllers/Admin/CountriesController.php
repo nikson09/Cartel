@@ -86,7 +86,7 @@ class CountriesController extends Controller
 
     public function delete($id)
     {
-        $attribute = Attribute::find($id);
+        $attribute = Country::find($id);
         $attribute->delete();
 
         return redirect()->route('admin_countries');

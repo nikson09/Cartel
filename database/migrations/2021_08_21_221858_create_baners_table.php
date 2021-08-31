@@ -16,7 +16,8 @@ class CreateBanersTable extends Migration
         Schema::create('baners', function (Blueprint $table) {
             $table->id();
             $table->string('href');
-            $table->integer('order_line');
+            $table->integer('order_line')->nullable();
+            $table->string('image', 255)->nullable();
             $table->timestamps();
         });
     }

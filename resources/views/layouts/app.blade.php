@@ -275,65 +275,10 @@
             <ul class="super-menu mobile-menu menu-floated">
 
                 <li class="drop-down  float-left main-menu-item-1">
-                    <a href="/category/1"  ><span class="main-menu-text">Абсент</span></a>
+                    <a href="/category/1" style="background-image: url('/images/bar-menu/brendy.png');"><span class="main-menu-text">Абсент</span></a>
                     <span class="mobile-plus">+</span>
                 </li>
-                <li class="drop-down  float-left main-menu-item-2">
-                    <a href="/category/2" rel="nofollow"><span class="main-menu-text">Бренди</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-3">
-                    <a href="/category/3" rel="nofollow"><span class="main-menu-text">Вермут</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-4">
-                    <a href="/wine/" rel="nofollow"><span class="main-menu-text">Вино</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-5">
-                    <a href="/category/5" rel="nofollow"><span class="main-menu-text">Виски</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-6">
-                    <a href="/category/6" rel="nofollow"><span class="main-menu-text">Водка</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-7">
-                    <a href="/category/7" rel="nofollow"><span class="main-menu-text">Джин</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-8">
-                    <a href="/category/8" rel="nofollow"><span class="main-menu-text">Кальвадос</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-9">
-                    <a href="/category/9" rel="nofollow"><span class="main-menu-text">Коньяк</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-10">
-                    <a href="/category/10" rel="nofollow"><span class="main-menu-text">Ликер</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-11">
-                    <a href="/category/11" rel="nofollow"><span class="main-menu-text">Ром</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-12">
-                    <a href="/category/12" rel="nofollow"><span class="main-menu-text">Текила</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-13">
-                    <a href="/category/13" rel="nofollow" ><span class="main-menu-text" style="width: 80px;">Игристое</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-14">
-                    <a href="/category/18" rel="nofollow"><span class="main-menu-text">Для Кальяна</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                <li class="drop-down  float-left main-menu-item-15">
-                    <a href="/product-category" rel="nofollow"><span class="main-menu-text">Продукты</span></a>
-                    <span class="mobile-plus">+</span>
-                </li>
+
             </ul>
         </div><!--Главное меню Алкоголя-->
     </div>

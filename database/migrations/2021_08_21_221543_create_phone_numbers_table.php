@@ -17,7 +17,7 @@ class CreatePhoneNumbersTable extends Migration
             $table->id();
             $table->string('phone_number');
             $table->integer('group_id');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

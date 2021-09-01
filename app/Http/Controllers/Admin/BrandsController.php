@@ -43,7 +43,8 @@ class BrandsController extends Controller
         $file = $request->file('image');
         $filename = '';
         if(!empty($file)){
-            $filename = $file->getClientOriginalName();
+//            $filename = $file->getClientOriginalName();
+            $filename = (count(Brand::all()) + 1) .'.png';
             $file->storeAs('public/brands', $filename);
         }
 
@@ -73,7 +74,8 @@ class BrandsController extends Controller
         $attribute->site_name = $request->site_name;
         $file = $request->file('image');
         if(!empty($file)){
-            $filename = $file->getClientOriginalName();
+//            $filename = $file->getClientOriginalName();
+            $filename = $attribute->id .'.png';
             $file->storeAs('public/brands', $filename);
             $attribute->image = $filename;
         }

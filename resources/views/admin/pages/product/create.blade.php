@@ -62,12 +62,12 @@
 
                                 <p>Новый ли товар?</p>
                                 <select class="custom-select"  name="is_new">
-                                    <option value="1" selected="selected">Да</option>
-                                    <option value="0">Нет</option>
+                                    <option value="1">Да</option>
+                                    <option value="0" selected="selected">Нет</option>
                                 </select>
 
 
-                                <div  style="justify-content: center;display: flex;">
+                                <div style="justify-content: center;display: flex;">
                                     <button type="submit" class="btn btn-round btn-default">Создать товар</button>
                                 </div>
                             </form>

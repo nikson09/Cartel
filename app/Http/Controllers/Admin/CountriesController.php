@@ -44,7 +44,8 @@ class CountriesController extends Controller
         $file = $request->file('image');
         $filename = '';
         if(!empty($file)){
-            $filename = $file->getClientOriginalName();
+//            $filename = $file->getClientOriginalName();
+            $filename = (count(Country::all()) + 1) .'.png';
             $file->storeAs('public/countries', $filename);
         }
 
@@ -74,7 +75,8 @@ class CountriesController extends Controller
         $attribute->site_name = $request->site_name;
         $file = $request->file('image');
         if(!empty($file)){
-            $filename = $file->getClientOriginalName();
+//            $filename = $file->getClientOriginalName();
+            $filename = $attribute->id .'.png';
             $file->storeAs('public/countries', $filename);
             $attribute->image = $filename;
         }

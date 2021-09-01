@@ -64,7 +64,8 @@ class ProductController extends Controller
         $file = $request->file('image');
         $filename = '';
         if(!empty($file)){
-            $filename = $file->getClientOriginalName();
+//            $filename = $file->getClientOriginalName();
+            $filename = (count(Product::all()) + 1) .'.png';
             $file->storeAs('public/products', $filename);
         }
 
@@ -123,7 +124,8 @@ class ProductController extends Controller
         $product->name = $request->name;
         $file = $request->file('image');
         if(!empty($file)){
-            $filename = $file->getClientOriginalName();
+//            $filename = $file->getClientOriginalName();
+            $filename = $product->id .'.png';
             $file->storeAs('public/products', $filename);
             $product->image = $filename;
         }

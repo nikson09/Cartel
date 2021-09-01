@@ -25,7 +25,7 @@
                                 <input required class="form-control" type="number" name="quantity" min="0" placeholder="0">
 
                                 <p>Выбор категории</p>
-                                <select class="custom-select"  name="category_id">
+                                <select required class="custom-select"  name="category_id">
                                     <option value="" selected="selected">Нажмите чтобы выбрать</option>
                                     @foreach($categories as $categorySelect)
                                         <option value="{{ $categorySelect->id }}">{{ $categorySelect->name }}</option>

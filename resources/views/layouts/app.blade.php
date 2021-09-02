@@ -160,7 +160,7 @@
                 <div class="navbar_header ">
                     <div class="row">
                         <a href="/" class="navbar-brand">
-                            <img class="lazy" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/3.svg') }}" alt="" class="">
+                            <img class="lazy" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/картель.svg') }}" alt="" class="">
                         </a>
                         <div class="modal fade" id="exampleModalLong_pc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -273,12 +273,14 @@
     <div class="container">
         <div class="journal-menu">
             <ul class="super-menu mobile-menu menu-floated">
-
-                <li class="drop-down  float-left main-menu-item-1">
-                    <a href="/category/1" style="background-image: url('/images/bar-menu/brendy.png');"><span class="main-menu-text">Абсент</span></a>
+                @foreach(\App\BarMenu::where('active', true)->get() as $barMenu)
+                <li class="drop-down float-left main-menu-item-1">
+                    <a href="{{ $barMenu->href }}" style="background-image: url({{ Storage::url('public/bar-menu/'. $barMenu->image) }});">
+                        <span class="main-menu-text">{{ $barMenu->name }}</span>
+                    </a>
                     <span class="mobile-plus">+</span>
                 </li>
-
+                @endforeach
             </ul>
         </div><!--Главное меню Алкоголя-->
     </div>

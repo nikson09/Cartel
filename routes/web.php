@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
@@ -31,6 +29,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/categories', 'AdminController@categories')->name('admin_categories');
     Route::get('/brands', 'AdminController@brands')->name('admin_brands');
     Route::get('/countries', 'AdminController@countries')->name('admin_countries');
+    Route::get('/bar_menus', 'AdminController@barMenus')->name('admin_barMenus');
 
     Route::namespace('Admin')->prefix('product')->group(function () {
         Route::post('/get', 'ProductController@getProducts')->name('admin_product_get');
@@ -75,5 +74,14 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/edit/{id}', 'CountriesController@edit')->name('admin_countries_edit');
         Route::post('/editAttribute/{id}', 'CountriesController@editCountry')->name('admin_countries_edit_post');
         Route::get('/delete/{id}', 'CountriesController@delete')->name('admin_countries_delete');
+    });
+
+    Route::namespace('Admin')->prefix('bar_menus')->group(function () {
+        Route::post('/get', 'BarMenuController@getBarMenus')->name('admin_barMenus_get');
+        Route::get('/create', 'BarMenuController@create')->name('admin_barMenus_create');
+        Route::post('/createBarMenu', 'BarMenuController@createBarMenu')->name('admin_barMenus_create_post');
+        Route::get('/edit/{id}', 'BarMenuController@edit')->name('admin_barMenus_edit');
+        Route::post('/editBarMenu/{id}', 'BarMenuController@editBarMenu')->name('admin_barMenus_edit_post');
+        Route::get('/delete/{id}', 'BarMenuController@delete')->name('admin_barMenus_delete');
     });
 });

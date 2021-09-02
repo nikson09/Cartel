@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\BarMenu;
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -36,5 +38,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        $categories = Category::where('status', true)->get();
+        $barMenus   = BarMenu::where('active', true)->get();
+
+        return view('auth.login', compact(['categories', 'barMenus']));
     }
 }

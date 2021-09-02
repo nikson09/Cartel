@@ -9,6 +9,16 @@ use Yajra\DataTables\DataTables;
 
 class CategoriesController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getCategories()
     {
         $categories = Category::query();

@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Storage;
 
 class CountriesController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getCountries()
     {
         $attributes = Country::query();

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\BarMenu;
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -69,5 +71,18 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        $categories = Category::where('status', true)->get();
+        $barMenus   = BarMenu::where('active', true)->get();
+
+        return view('auth.register', compact(['categories', 'barMenus']));
     }
 }

@@ -50,10 +50,10 @@
                                 <p>Категории</p>
                             </a>
                         </li>
-                        <li @if ($pageSlug == 'users') class="active " @endif>
-                            <a href="#">
+                        <li @if ($pageSlug == 'bar-menu') class="active " @endif>
+                            <a href="{{ route('admin_barMenus') }}">
                                 <i class="tim-icons icon-credit-card"></i>
-                                <p>Вверхнее меню</p>
+                                <p>Бар Меню</p>
                             </a>
                         </li>
                         <li @if ($pageSlug == 'countries') class="active " @endif>

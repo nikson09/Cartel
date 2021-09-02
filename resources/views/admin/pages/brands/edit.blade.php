@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="card" style="height: 100%;">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Редактировать категорию "{{ $brand->name }}"</h4>
+                            <h4 class="card-title ">Редактировать бренд "{{ $brand->name }}"</h4>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('admin_brands_edit_post', ['id' => $brand->id]) }}" method="post" enctype="multipart/form-data">

@@ -13,7 +13,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     public function home()
@@ -56,5 +56,11 @@ class AdminController extends Controller
     {
         $pageSlug = 'countries';
         return view('admin.pages.countries', ['pageSlug' => $pageSlug]);
+    }
+
+    public function barMenus()
+    {
+        $pageSlug = 'bar-menu';
+        return view('admin.pages.bar_menus', ['pageSlug' => $pageSlug]);
     }
 }

@@ -86,7 +86,7 @@
                 <div class="navbar navbar-inverse navbar-fixed-top">
                     <div class="container">
                         <a href="/" class="navbar-brand_mobile">
-                            <img class="lazy" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/3.svg') }}" alt="" class="">
+                            <img class="lazy" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/картель.png') }}" alt="" class="">
                         </a>
                         <div class="contact-info col-11 ">
                             <ul class="nav nav-pills">
@@ -160,7 +160,7 @@
                 <div class="navbar_header ">
                     <div class="row">
                         <a href="/" class="navbar-brand">
-                            <img class="lazy" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/картель.svg') }}" alt="" class="">
+                            <img class="lazy" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/картель.png') }}" alt="" class="">
                         </a>
                         <div class="modal fade" id="exampleModalLong_pc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -241,7 +241,7 @@
                                         <span style="text-decoration: underline;">
                                             <span style="color: #000000;">
                                                 <a href="http://drinkking.com.ua/">
-                                                    <span style="color: #000000; text-decoration: underline;">DRINK KING</span>
+                                                    <span style="color: #000000; text-decoration: underline;">Cartel</span>
                                                 </a>
                                             </span>
                                         </span>
@@ -309,7 +309,7 @@
                 <div class="row">
                     <p class="col-4"><img class="lazy autor" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/autor.png') }}" alt="" class="autor"></p>
 
-                    <p class="col-8 text-sm-right"><img class="lazy autor_site" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/3.svg') }}" alt=""></p>
+                    <p class="col-8 text-sm-right"><img class="lazy autor_site" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/картель.png') }}" alt=""></p>
                 </div>
             </div>
         </div>

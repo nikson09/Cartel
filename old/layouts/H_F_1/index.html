@@ -1,0 +1,42 @@
+
+<!--
+Пример создан сайтом: http://blogjquery.ru/zhivoj-poisk-po-bd-s-pomoshhyu-jquery-i-php
+-->
+
+<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="jquery-ui.js"></script>
+<style>
+.ui-autocomplete {list-style: none;padding: 0;margin: 0;display: block;outline: none;position: absolute;top: 0;left: 0;cursor: default;z-index: 100;overflow-y: auto;overflow-x: hidden;color: #000;max-height: 100px;border: 1px solid #aaaaaa;background: #ffffff;}
+.ui-autocomplete .ui-menu-item {  position: relative;  margin: 0;  padding: 3px 5px 3px 5px;  cursor: pointer;  min-height: 0;}
+.ui-helper-hidden-accessible { display: none;}
+.ui-autocomplete .ui-menu-item:hover {background: #eee;}
+
+.uirezult {margin-top: 50px;}
+.uirezultshapka_tr {overflow: hidden;}
+.uirezultshapka_td25 {float: left;width: 24%;padding: 8px 0px 8px 1%;background: #1c4482;color: #fff!important;}
+.uirezultbd .ui-autocomplete {position: static!important;cursor: default;overflow-y: inherit!important;overflow-x: hidden!important;max-height: none!important;border: 0px solid #aaaaaa;background: none;display: block!important;}
+.uirezultbd {overflow: hidden;}
+.uirezultbd .ui-autocomplete li {padding: 0px;}
+.uirezultbd .ui-autocomplete li .uirezultbd_tr {overflow: hidden;border-top: 1px solid #eee;}
+.uirezultbd .ui-autocomplete li:first-child .uirezultbd_tr {border-top: 0px solid #eee;}
+.uirezultbd .ui-autocomplete li .uirezultbd_td25 {float: left;width: 24%;padding: 5px 0px 5px 1%;font-size: 14px!important;}
+</style>
+
+
+<script>
+/*
+!Для этого способа модифицирован jquery-ui.js, строка 3287 (ставим html вместо text): return $( "<li>" ).html(item.label).appendTo(ul);
+*/
+$(document).ready(function(){
+$(function() {
+$("[name=s_search5]").autocomplete({
+minLength: 1,
+appendTo: '.uirezultbd',          //в какой html вставить результаты поиска (если убрать, будет низпадайкой, как в обычном случае)
+open: function(event, ui) {       //действие в момент поиска (когда набирается текст) - добавляем шапку результатов поиска
+$('.uirezultshapka_tr').html('<div class="uirezultshapka_td25">id</div><div class="uirezultshapka_td25">Название</div><div class="uirezultshapka_td25">Создано</div><div class="uirezultshapka_td25">Ссылка</div>');
+},
+source: 'poiskbest.php?search_tip=title'
+}); }); });
+</script>
+<input name="s_search5" placeholder="" style="border: 1px solid #ccc;padding: 4px 6px;width: 50%;"><br /><br />
+<div class="uirezult"><div class="uirezultshapka_tr"><!-- здесь шапка --></div><div class="uirezultbd"><!-- здесь результаты поиска --></div></div>

@@ -1,0 +1,53 @@
+<?php include ROOT . '/Site/layouts/header_admin.php'; ?>
+
+<section>
+<div class="Register_shop ">
+    <div class="container">
+        <div class="row">
+
+            <br/>
+
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                    <li><a href="/admin">Админпанель</a></li>
+                    <div class="divider_n"></div>
+                    <li class="active">Управление категориями</li>
+                </ol>
+            </div>
+</div>
+            <a href="/admin/pod_category/create" class="btn btn-default back"><i class="fa fa-plus"></i> Добавить подкатегорию</a>
+            <br/>
+            <h4 class="text-center">Список подкатегорий</h4>
+
+            
+<br/>
+
+
+            
+<div class="row justify-content-center">
+            <table class="table-bordered table-striped table">
+                <tr>
+                    <th>ID подкатегории</th>
+                    <th>Название подкатегории</th>
+                    <th>Категория #</th>
+                    <th>Статус</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <?php foreach ($categoriesList as $category): ?>
+                    <tr>
+                        <td><?php echo $category['id']; ?></td>
+                        <td><?php echo $category['name']; ?></td>
+                        <td><?php echo $category['parent']; ?></td>
+                        <td><?php echo Category::getStatusText($category['status']); ?></td>  
+                        <td><a href="/admin/pod_category/update/<?php echo $category['id']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
+                        <td><a href="/admin/pod_category/delete/<?php echo $category['id']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+           </div> 
+        </div>
+    </div>    </div>
+</section>
+
+<?php include ROOT . '/Site/layouts/footer_admin.php'; ?>

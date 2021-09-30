@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BarMenu;
 use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,11 +19,13 @@ class HomeController extends Controller
     {
         $categories = Category::where('status', true)->get();
         $barMenus   = BarMenu::where('active', true)->get();
+        $latestProducts = Product::with(['country', 'category', 'brand'])->where(['is_new' => true])->get();
 
         return view('home',
         [
             'categories' => $categories,
-            'barMenus' => $barMenus
+            'barMenus' => $barMenus,
+            'latestProducts' => $latestProducts
         ]);
     }
 }

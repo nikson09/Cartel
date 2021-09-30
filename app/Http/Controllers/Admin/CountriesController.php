@@ -51,20 +51,23 @@ class CountriesController extends Controller
 
     public function createCountry(Request $request)
     {
+
+        $country = Country::create([
+            'name' => $request->name,
+            'site_name' => $request->site_name,
+            'image' => '',
+            'status' => $request->status
+        ]);
+
         $file = $request->file('image');
         $filename = '';
         if(!empty($file)){
-//            $filename = $file->getClientOriginalName();
-            $filename = (count(Country::all()) + 1) .'.png';
+            $filename = ($country->id) .'.png';
             $file->storeAs('public/countries', $filename);
+            $country->image = $filename;
+            $country->update();
         }
 
-        $productAttribute = Country::create([
-            'name' => $request->name,
-            'site_name' => $request->site_name,
-            'image' => $filename,
-            'status' => $request->status
-        ]);
 
         return redirect()->route('admin_countries');
     }

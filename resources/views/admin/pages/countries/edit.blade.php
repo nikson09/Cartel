@@ -18,7 +18,7 @@
                                     <img id="preview" src="{{ !empty($country->image) ? Storage::url('public/countries/'. $country->image)  : 'https://www.kenyons.com/wp-content/uploads/2017/04/default-image-620x600.jpg' }}" style="max-width: 200px" class="rounded" alt="...">
                                 </div>
                                 <input class="form-control" type="file" id="files" style="display: none;cursor: pointer;" name="image" class="hidden"/>
-                                <label for="files" style="cursor: pointer;">{{ $country->image }}</label>
+                                <label for="files" style="cursor: pointer;">{{ !empty($country->image) ? $country->image : 'выберете изображение'  }}</label>
 
                                 <p>Название Страны</p>
                                 <input required class="form-control" type="text" name="name" placeholder="Название страны" value="{{ $country->name }}">

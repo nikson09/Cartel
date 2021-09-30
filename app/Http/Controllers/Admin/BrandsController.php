@@ -50,20 +50,21 @@ class BrandsController extends Controller
 
     public function createBrand(Request $request)
     {
+        $brand = Brand::create([
+            'name' => $request->name,
+            'site_name' => $request->site_name,
+            'image' => '',
+            'status' => $request->status
+        ]);
+
         $file = $request->file('image');
         $filename = '';
         if(!empty($file)){
-//            $filename = $file->getClientOriginalName();
-            $filename = (count(Brand::all()) + 1) .'.png';
+            $filename = ($brand->id) .'.png';
             $file->storeAs('public/brands', $filename);
+            $brand->image = $filename;
+            $brand->update();
         }
-
-        $productAttribute = Brand::create([
-            'name' => $request->name,
-            'site_name' => $request->site_name,
-            'image' => $filename,
-            'status' => $request->status
-        ]);
 
         return redirect()->route('admin_brands');
     }

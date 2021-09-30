@@ -71,25 +71,27 @@ class ProductController extends Controller
 
     public function createProduct(Request $request)
     {
-        $file = $request->file('image');
-        $filename = '';
-        if(!empty($file)){
-//            $filename = $file->getClientOriginalName();
-            $filename = (count(Product::all()) + 1) .'.png';
-            $file->storeAs('public/products', $filename);
-        }
 
         $product = Product::create([
             'name' => $request->name,
-            'image' => $filename,
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
             'country_id' => $request->country_id,
+            'image' => '',
             'description' => $request->description ?? '',
             'quantity' => $request->quantity,
             'sum' => $request->price,
             'is_new' => $request->is_new
         ]);
+
+        $file = $request->file('image');
+        $filename = '';
+        if(!empty($file)){
+            $filename = ($product->id) .'.png';
+            $file->storeAs('public/products', $filename);
+            $product->image = $filename;
+            $product->update();
+        }
 
         ProductAttribute::where('product_id', $product->id)->delete();
         if(!empty($request->all()['attributes'])){

@@ -18,7 +18,7 @@
                                     <img id="preview" src="{{ !empty($barMenu->image) ? Storage::url('public/bar-menu/'. $barMenu->image)  : 'https://www.kenyons.com/wp-content/uploads/2017/04/default-image-620x600.jpg' }}" style="max-width: 200px" class="rounded" alt="...">
                                 </div>
                                 <input class="form-control" type="file" id="files" style="display: none;cursor: pointer;" name="image" class="hidden"/>
-                                <label for="files" style="cursor: pointer;">{{ $barMenu->image }}</label>
+                                <label for="files" style="cursor: pointer;">{{ !empty($barMenu->image) ? $barMenu->image : 'выберете изображение'  }}</label>
 
                                 <p>Название пункта меню</p>
                                 <input required class="form-control" type="text" name="name" placeholder="Название пункта" value="{{ $barMenu->name }}">

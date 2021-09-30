@@ -53,20 +53,21 @@ class BarMenuController extends Controller
 
     public function createBarMenu(Request $request)
     {
-        $file = $request->file('image');
-        $filename = '';
-        if(!empty($file)){
-//            $filename = $file->getClientOriginalName();
-            $filename = (count(BarMenu::all()) + 1) .'.png';
-            $file->storeAs('public/bar-menu', $filename);
-        }
-
         $barMenu = BarMenu::create([
             'name' => $request->name,
             'href' => $request->href,
-            'image' => $filename,
+            'image' => '',
             'active' => $request->active
         ]);
+
+        $file = $request->file('image');
+        $filename = '';
+        if(!empty($file)){
+            $filename = ($barMenu->id) .'.png';
+            $file->storeAs('public/bar-menu', $filename);
+            $barMenu->image = $filename;
+            $barMenu->update();
+        }
 
         return redirect()->route('admin_barMenus');
     }

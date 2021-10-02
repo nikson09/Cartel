@@ -263,7 +263,7 @@
                         <div class="cartTopBlock">
                             <a href="/cart/" class="cartLink topNavBlock">
                                 <p id="cart-count" class="mobile-hidden">Корзина: 0</p>
-                                <span class="mobile-hidden">0<span>грн</span></span>
+                                <span class="mobile-hidden">0 <span>&nbsp;грн</span></span>
                             </a>
                         </div>
                     </div>

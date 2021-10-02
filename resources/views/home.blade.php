@@ -70,10 +70,12 @@
                                                             <div class="d-block">
                                                                 @if ($product['is_sales'])
                                                                     <div class="g-price-old-uah">
-                                                                        {{ $product['discount_sum'] }}<span class="g-price-old-uah-sign"> грн</span>
+                                                                        {{ $product['sum'] }}<span class="g-price-old-uah-sign"> грн</span>
                                                                     </div>
+                                                                    <h5 class="pric">{{$product['discount_sum']}} грн</h5>
+                                                                @else
+                                                                    <h5 class="pric">{{$product['sum']}} грн</h5>
                                                                 @endif
-                                                                <h5 class="pric">{{$product['sum']}} грн</h5>
                                                             </div>
                                                             <a href="javascript:void(0);" style="margin-top: 0.5vw;" class="btn btn-default add-to-cart" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>В корзину</a>
                                                         </div>
@@ -86,6 +88,7 @@
                             </div>
                         </div>
                     @endif
+                    @if(!empty($latestProducts))
                     <div class="last_items">
                         <h3 class="title text-center">Новые товары</h3>
                             <div class="row justify-content-center ">
@@ -138,10 +141,12 @@
                                                     <div class="d-block">
                                                         @if ($product['is_sales'])
                                                             <div class="g-price-old-uah">
-                                                                {{ $product['discount_sum'] }}<span class="g-price-old-uah-sign"> грн</span>
+                                                                {{ $product['sum'] }}<span class="g-price-old-uah-sign"> грн</span>
                                                             </div>
+                                                            <h5 class="pric">{{$product['discount_sum']}} грн</h5>
+                                                        @else
+                                                            <h5 class="pric">{{$product['sum']}} грн</h5>
                                                         @endif
-                                                        <h5 class="pric">{{$product['sum']}} грн</h5>
                                                     </div>
                                                     <a href="javascript:void(0);" style="margin-top: 0.5vw;" class="btn btn-default add-to-cart" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>В корзину</a>
                                                 </div>
@@ -152,6 +157,7 @@
                                 @endforeach
                             </div><!--Товары-->
                     </div><!--row товары-->
+                    @endif
                 </div>
             </div>
         </div>

@@ -66,6 +66,12 @@
                                     <option value="0" selected="selected">Нет</option>
                                 </select>
 
+                                <p>Рекомендовать товар?</p>
+                                <select class="custom-select"  name="is_recomended">
+                                    <option value="1">Да</option>
+                                    <option value="0" selected="selected">Нет</option>
+                                </select>
+
 
                                 <div style="justify-content: center;display: flex;">
                                     <button type="submit" class="btn btn-round btn-default">Создать товар</button>

@@ -84,7 +84,8 @@ class ProductController extends Controller
             'description' => $request->description ?? '',
             'quantity' => $request->quantity,
             'sum' => $request->price,
-            'is_new' => $request->is_new
+            'is_new' => $request->is_new,
+            'is_recomended' => $request->is_recomended
         ]);
 
         $file = $request->file('image');
@@ -151,6 +152,7 @@ class ProductController extends Controller
         $product->quantity = $request->quantity;
         $product->sum = $request->price;
         $product->is_new = $request->is_new;
+        $product->is_recomended = $request->is_recomended;
         $product->update();
 
         ProductAttribute::where('product_id', $product->id)->delete();

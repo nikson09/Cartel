@@ -20,6 +20,7 @@ class HomeController extends Controller
         $categories = Category::where('status', true)->get();
         $barMenus   = BarMenu::where('active', true)->get();
         $latestProducts = Product::with(['country', 'category', 'brand'])->where(['is_new' => true])->get();
+        $recomendedProducts = Product::with(['country', 'category', 'brand'])->where(['is_recomended' => true])->get();
 
         return view('home',
         [

@@ -74,6 +74,12 @@
                                     <option {{ $product->is_new === 0 ? 'selected' : '' }} value="0">Нет</option>
                                 </select>
 
+                                <p>Рекомендовать товар?<</p>
+                                <select class="custom-select" name="is_recomended">
+                                    <option {{ $product->is_recomended === 1 ? 'selected' : '' }} value="1">Да</option>
+                                    <option {{ $product->is_recomended === 0 ? 'selected' : '' }} value="0">Нет</option>
+                                </select>
+
 
                                 <div  style="justify-content: center;display: flex;">
                                     <button type="submit" class="btn btn-round btn-default">Редактировать товар</button>

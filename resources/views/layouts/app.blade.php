@@ -358,4 +358,6 @@
     });
 </script>
 <script src="//code.jivosite.com/widget/HnMGnSsPrd" async></script>
+<script src="{{ asset('js/jquery.cycle2.min.js')}}"></script>
+<script src="{{ asset('js/jquery.cycle2.carousel.min.js')}}"></script>
 </html>

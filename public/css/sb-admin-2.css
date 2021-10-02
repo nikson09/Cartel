@@ -11227,3 +11227,6 @@ body.sidebar-toggled footer.sticky-footer {
     height: calc(4.375rem - 2rem);
     margin: auto 1rem;
 }
+.dataTables_wrapper .dataTables_info {
+    color: white !important;
+}

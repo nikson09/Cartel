@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     public function getProducts()
@@ -30,7 +30,10 @@ class ProductController extends Controller
         $products = Product::query();
         return Datatables::of($products)
             ->addColumn('action', function ($row) {
+                $action = $row->is_sales ? "deleteDiscountModal(".$row->id.")" : "showDiscountModal(".$row->id.")";
+                $text = $row->is_sales ? "Удалить скидку" : "Добавить скидку" ;
                 return '<a style="margin-right:5px" class="btn btn-outline-dark fa fa-wrench" href="'. route('admin_product_edit', ['id' => $row->id]) .'"></a>
+                    <a class="btn btn-outline-dark" href="javascript:void(0)" onclick="'. $action .'"><i class="tim-icons icon-bank"></i> '. $text .'</a>
                     <a class="btn btn-outline-dark fa fa-trash" href="'. route('admin_product_delete', ['id' => $row->id]) .'" ></a>';
             })
             ->addColumn('image', function ($row) {
@@ -172,5 +175,35 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('admin_products');
+    }
+
+    public function addDiscountPercent(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+
+        $product->discount_percent = $request->percent;
+        $product->discount_date = $request->date;
+        $product->is_sales = true;
+        $product->update();
+
+        return response()->json([
+            'status' => true,
+            'product' => $product
+        ], 200);
+    }
+
+    public function deleteDiscountPercent(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+
+        $product->discount_percent = null;
+        $product->discount_date = null;
+        $product->is_sales = false;
+        $product->update();
+
+        return response()->json([
+            'status' => true,
+            'product' => $product
+        ], 200);
     }
 }

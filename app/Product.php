@@ -9,6 +9,8 @@ class Product extends Model
     protected $table = 'products';
     protected $guarded = [];
 
+    protected $appends = ['discount_sum'];
+
     public function attributes()
     {
         return $this->hasMany(ProductAttribute::class, 'product_id', 'id');
@@ -27,5 +29,15 @@ class Product extends Model
     public function brand()
     {
         return $this->hasOne(Brand::class, 'id', 'brand_id');
+    }
+
+    public function getDiscountSumAttribute()
+    {
+        $sum = 0;
+        if($this->attributes['is_sales']){
+            $sum = $this->attributes['sum'] - ($this->attributes['sum'] / 100 * $this->attributes['discount_percent']);
+        }
+
+        return ceil($sum);
     }
 }

@@ -12,6 +12,12 @@
                         <div class="card-body">
                             <form action="{{ route('admin_categories_create_post') }}" method="post" enctype="multipart/form-data">
                                 @csrf
+                                <p>Изображение категории</p>
+                                <div class="text-left">
+                                    <img id="preview" src="https://www.kenyons.com/wp-content/uploads/2017/04/default-image-620x600.jpg" style="max-width: 200px" class="rounded" alt="...">
+                                </div>
+                                <input class="form-control" type="file" name="image">
+
                                 <p>Название категории</p>
                                 <input required class="form-control" type="text" name="name" placeholder="Название Категории">
 
@@ -31,6 +37,12 @@
                                     <option value="1" selected="selected">Да</option>
                                     <option value="0">Нет</option>
                                 </select>
+
+                                <p>Категория с категориями с изображением?</p>
+                                <select required class="custom-select" name="is_main">
+                                    <option value="1" selected="selected">Да</option>
+                                    <option value="0">Нет</option>
+                                </select>
                                 <div  style="justify-content: center;display: flex;">
                                     <button type="submit" class="btn btn-round btn-default">Создать категорию</button>
                                 </div>
@@ -44,5 +56,14 @@
 @endsection
 
 @section('scripts')
-
+    <script>
+        window.addEventListener('load', function() {
+            document.querySelector('input[name="image"]').addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    let img = document.querySelector('#preview');
+                    img.src = URL.createObjectURL(this.files[0]);
+                }
+            });
+        });
+    </script>
 @endsection

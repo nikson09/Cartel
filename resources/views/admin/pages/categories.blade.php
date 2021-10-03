@@ -16,6 +16,9 @@
                                 <table class="table" id="categoriesTable" >
                                     <thead class=" text-primary">
                                     <th>
+                                        Изображение
+                                    </th>
+                                    <th>
                                         Идентификатор
                                     </th>
                                     <th>
@@ -56,6 +59,7 @@
                     'url':'/admin/categories/get'
                 },
                 'columns': [
+                    { data: 'image' },
                     { data: 'id' },
                     { data: 'name' },
                     { data: 'parent' },

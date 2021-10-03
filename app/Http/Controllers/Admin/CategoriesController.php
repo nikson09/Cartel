@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
 class CategoriesController extends Controller
@@ -23,6 +24,16 @@ class CategoriesController extends Controller
     {
         $categories = Category::query();
         return Datatables::of($categories)
+            ->addColumn('image', function ($row) {
+                if(empty($row->image)){
+                    $fileUrl = 'https://www.kenyons.com/wp-content/uploads/2017/04/default-image-620x600.jpg';
+                } else {
+                    $fileUrl = Storage::url('public/categories/'. $row->image);
+                }
+                return '<div class="text-left">
+                            <img id="preview" src="'. $fileUrl .'" style="max-width: 200px" class="rounded" alt="...">
+                        </div>';
+            })
             ->addColumn('action', function ($row) {
                 return '<a style="margin-right:5px" class="btn btn-outline-dark fa fa-wrench" href="'. route('admin_categories_edit', ['id' => $row->id]) .'"></a>
                     <a class="btn btn-outline-dark fa fa-trash" href="'. route('admin_categories_delete', ['id' => $row->id]) .'" ></a>';
@@ -32,7 +43,7 @@ class CategoriesController extends Controller
                 $categoryName = !empty($category) ? $category->name : 'Без родительской категории';
                 return $categoryName;
             })
-            ->rawColumns(['action', 'parent'])
+            ->rawColumns(['action', 'parent', 'image'])
             ->make(true);
     }
 
@@ -51,8 +62,18 @@ class CategoriesController extends Controller
             'name' => $request->name,
             'parent' => $request->parent ?? null,
             'sort_order' => $request->sort_order ?? null,
+            'is_main' => $request->is_main,
             'status' => $request->status
         ]);
+
+        $file = $request->file('image');
+        $filename = '';
+        if(!empty($file)){
+            $filename = ($category->id) .'.png';
+            $file->storeAs('public/categories', $filename);
+            $category->image = $filename;
+            $category->update();
+        }
 
         return redirect()->route('admin_categories');
     }
@@ -73,7 +94,16 @@ class CategoriesController extends Controller
         $category->name = $request->name;
         $category->parent = $request->parent;
         $category->sort_order = $request->sort_order;
+        $category->is_main = $request->is_main;
         $category->status = $request->status;
+
+        $file = $request->file('image');
+        $filename = '';
+        if(!empty($file)){
+            $filename = ($category->id) .'.png';
+            $file->storeAs('public/categories', $filename);
+            $category->image = $filename;
+        }
 
         $category->update();
 

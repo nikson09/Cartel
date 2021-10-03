@@ -14,7 +14,7 @@
         </div>
         <h4 id="categor_name">Категории</h4>
         <div class="panel-group category-products">
-            @foreach (\App\Category::where('status', true)->get() as $categoryItem)
+            @foreach ($categories as $categoryItem)
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h6 class="panel-title">

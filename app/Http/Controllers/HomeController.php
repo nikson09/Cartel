@@ -17,7 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::where('status', true)->get();
+        $categories = Category::where([
+            'status' => true
+            ])->whereNull('parent')->get();
         $barMenus   = BarMenu::where('active', true)->get();
         $latestProducts = Product::with(['country', 'category', 'brand'])->where(['is_new' => true])->get();
         $recomendedProducts = Product::with(['country', 'category', 'brand'])->where(['is_recomended' => true])->get();

@@ -1,12 +1,13 @@
 @extends('layouts.app')
-@extends('layouts.section')
+@extends('layouts.sectionCategory')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12">
+                @if(!$category->is_main)
                 <div class="features_items">
-                        <h3 class="title text-center">{{ $category->name }}</h3>
+                    <h3 class="title text-center">{{ $category->name }}</h3>
                         <div class="row justify-content-center ">
                             @foreach ($products as $product)
                                 <div class="col-4">
@@ -72,8 +73,25 @@
                                 </div>
                             @endforeach
                         </div>
-                        {{$products->links() }}
+                {{$products->links() }}
+            </div>
+                @else
+                    <div class="features_items"><!--features_items-->
+                        <h3 class="title text-center">{{ $category->name }}</h3>
+                        <div class="Wine_countrys">
+                            <div class="row justify-content-center">
+                                @foreach($podCategories as $prodCat)
+                                <div class="single-products" style="position: relative;margin-right: 5px;width: 200px;height: 123px;margin-top: 17px;margin-bottom: 39px;">
+                                    <div class="productinfo text-center">
+                                        <a href="/category/{{ $prodCat['id'] }}"> <img width="auto" height="215,783" src="{{Storage::url('public/categories/'. $prodCat['image'])}}" alt="" /></a>
+                                        <p><a href="/category/{{ $prodCat['id'] }}">{{ $prodCat['name'] }}</a></p>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
+                @endif
         </div>
     </div>
 @endsection

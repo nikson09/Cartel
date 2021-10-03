@@ -148,7 +148,6 @@
                         </div>
                         <div class="social-info">
                             <ul class="nav navbar-flex ">
-                                <li ><a href="https://Facebook.com/drinkking.com.ua" class="fa fa-facebook"></a></li>
                                 <li ><a href="https://www.instagram.com/drinkking.com.ua" class="fa fa-instagram"></a></li>
                             </ul>
                         </div>

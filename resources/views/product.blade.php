@@ -1,17 +1,14 @@
 
 
 <div  class="product-details"><!--product-details-->
-
-
     <div class="container">
         <div class="row">
-
             <div class="col-5">
-                <div class="view-product"><div class="w_image_w img-thumbnail"><?php if ($product['discount']): ?><span class="discount_date_w"><?php echo $product['discount_date'];?></span>
-                        <?php endif; ?>
+                <div class="view-product"><div class="w_image_w img-thumbnail">
+                        @if ($product['discount'])
+                            <span class="discount_date_w">{{$product['discount_date']}}</span>
+                        @endif
                         <div class="container"><div class="row justify-content-center">
-
-
                                 <img alt="<?php echo $product['name_site'];?>"  class="img_w" src="<?php echo Product::getImage($product['id']); ?>" width="auto" height="270" alt="" />
 
                                 <?php if ($product['discount']): ?>
@@ -21,11 +18,6 @@
                     <div class="row justify-content-center">
 
                     </div>
-
-
-
-
-
                 </div>
 
             </div>

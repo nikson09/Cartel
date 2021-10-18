@@ -133,7 +133,7 @@
                                                             <img class='image_flag lazy' style="margin-right: 0.3vw;" src='data:image/gif;base64,R0lGODlhCAAFAIAAAP///wAAACH5BAEAAAEALAAAAAAIAAUAAAIFjI+py1gAOw==' data-src='{{ Storage::url('public/countries/'. $product['country']['image']) }}' alt='' /><a class='link' href="/country/{{ $product['country']['id'] }}">{{$product['country']['site_name']}} / </a>
                                                         @endif
                                                         @if ($product['brand'])
-                                                            <a href="/pod_categorys/{{ $product['brand']['id'] }}">{{$product['brand']['site_name']}}</a>
+                                                            <a href="/pod_categorys/{{ $product['brand']['id'] }}">{{$product['brand']['name']}}</a>
                                                         @endif
                                                     </span>
                                                 </div>

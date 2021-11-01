@@ -2,10 +2,8 @@
     font-family: pacifico;
     width: 100%;
     position: relative;
-    display: table;
-    table-layout: fixed;
+    display: flex;
     margin: 0;
-    padding: 0px 0px;
     border: 0;
     height: 80px;
     margin-left: 0px;

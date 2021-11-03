@@ -22,6 +22,10 @@ Route::get('/category/{id}', 'CategoriesController@category')->name('category');
 Route::get('/brand/{id}/category/{category_id}', 'BrandsController@brand')->name('brand');
 Route::get('/country/{id}/category/{category_id}', 'CountriesController@country')->name('country');
 
+Route::group(['prefix' => 'product'], function () {
+    Route::get('/{id}', 'ProductController@productView')->name('product.view');
+});
+
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['prefix' => 'admin'], function () {

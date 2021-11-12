@@ -229,8 +229,11 @@
                             <p>
                                 <a href="tel:+380 73 001 7705" >Онлайн маркет</a>
                             </p>
-                            <span class="number-1">(073)0017705</span>
-                            <span class="number-1">(097)0017705</span></div>
+                            <div style="display: block;position: absolute;">
+                                <span class="number-1">(073)0017705</span>
+                                <span class="number-1">(097)0017705</span>
+                            </div>
+                        </div>
                         <div class="fullListTell">
                             <div class="forScroll" style="max-height: 182px;">
                                 <p class="h2">интернет-магазин</p>
@@ -261,9 +264,9 @@
                             </div>
                         </div>
                         <div class="cartTopBlock">
-                            <a href="/cart/" class="cartLink topNavBlock">
-                                <p id="cart-count" class="mobile-hidden">Корзина: 0</p>
-                                <span class="mobile-hidden">0 <span>&nbsp;грн</span></span>
+                            <a href="javascript:void(0);" class="cartLink topNavBlock" onclick="openBasket()">
+                                <p class="mobile-hidden">Корзина: <span id="cart-count">0</span></p>
+                                <span class="mobile-hidden"><span id="cart-sum">0</span>&nbsp;грн</span>
                             </a>
                         </div>
                     </div>
@@ -303,6 +306,44 @@
                 </div>
             </div>
         </main>
+        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Корзина
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-image">
+                            <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Наименование</th>
+                                <th scope="col">Цена</th>
+                                <th scope="col">Количество</th>
+                                <th scope="col">Всего</th>
+                                <th scope="col">Действие</th>
+                            </tr>
+                            </thead>
+                            <tbody id="cart-body">
+
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end">
+                            <h5>Всего: <span class="price text-success"><span id="total_cart_sum">0</span> грн</span></h5>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-success">Оформить заказ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     <footer id="footer"><!--Footer-->
         <div class="footer-bottom">
             <div class="container">
@@ -328,7 +369,7 @@
 <script>
     $(window).on('load', function() {
         setTimeout(function () {
-            $("#loader").delay(0.50).fadeOut().remove();
+            $("#loader").delay(0.50).fadeOut().hide();
         },);
     });
 </script>
@@ -360,5 +401,127 @@
 <script src="//code.jivosite.com/widget/HnMGnSsPrd" async></script>
 <script src="{{ asset('js/jquery.cycle2.min.js')}}"></script>
 <script src="{{ asset('js/jquery.cycle2.carousel.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    $(function(){
+        getBasket();
+    });
+
+    function showLoading()
+    {
+        $("#loader").show();
+    }
+
+    function hideLoading()
+    {
+        $("#loader").delay(0.50).fadeOut().hide();
+    }
+
+    function getBasket()
+    {
+        let basketCount = $('#cart-count');
+        let basketSum = $('#cart-sum');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '/getBasket',
+            method: 'get',
+            success: function (data) {
+                basketCount.text(data.quantity);
+                basketSum.text(data.sum);
+            }
+        });
+    }
+
+    function addToBasketOneProduct(id)
+    {
+        let quantity = 1;
+        let productId = id;
+        this.showLoading();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '/addProductToBasket',
+            data: {
+                quantity: quantity,
+                productId: productId
+            },
+            method: 'post',
+            success: function(data){
+                $("#loader").hide();
+                if(data.result){
+                    swal({
+                        text: "Товар успешно добавлен в корзину!",
+                        icon: "success",
+                        buttons: false,
+                        timer: 1000
+                    });
+                    getBasket()
+                }
+            },
+            error: function(error){
+                $("#loader").hide();
+                swal({
+                    text: error,
+                    icon: "error",
+                    buttons: false,
+                    timer: 1000
+                });
+            },
+        });
+    }
+
+    function openBasket()
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '/fetchBasketProducts',
+            data: {},
+            method: 'get',
+            success: function(data){
+                $("#loader").hide();
+                let products = data.products;
+                let html = '';
+                products.forEach((value, index) => {
+                    html += '                            <tr>\n' +
+                        '                                <td>\n' +
+                        '                                    <img style="width: 12vw;height: auto" src="/storage/products/'+ value.image +'" class="img-fluid img-thumbnail" alt="Sheep">\n' +
+                        '                                </td>\n' +
+                        '                                <td>'+ value.name +'</td>\n' +
+                        '                                <td style="white-space: nowrap;">'+ value.sum +' грн</td>\n' +
+                        '                                <td class="qty"><input type="text" class="form-control" id="input1" value="'+ value.quantity +'"></td>\n' +
+                        '                                <td style="white-space: nowrap;">'+ (parseInt(value.sum) * parseInt(value.quantity)) +' грн</td>\n' +
+                        '                                <td>\n' +
+                        '                                    <a href="#" class="btn btn-danger btn-sm">\n' +
+                        '                                        <i class="fa fa-times"></i>\n' +
+                        '                                    </a>\n' +
+                        '                                </td>\n' +
+                        '                            </tr>';
+                });
+                $('#cart-body').html(html);
+                $('#cartModal').modal('show');
+                $('#total_cart_sum').text(data.sum);
+            },
+            error: function(error){
+                $("#loader").hide();
+
+            },
+        });
+    }
+</script>
 @yield('scripts')
 </html>

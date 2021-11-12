@@ -61,14 +61,14 @@
                                     </div>
                                     <div class="row justify-content-center">
                                         <span class="count">Кол-во:
-                                            <button class="down btn btn-default checkout">
+                                            <button class="down btn btn-default checkout" onclick="minusProduct()">
                                                 <i class="fa fa-minus"></i>
                                             </button>
-                                            <input type="text" class="quantity" id="quantity" value="1" data-min-value="1" data-max-value="10000" min="1"  pattern="[0-9]*"/>
-                                            <button class="up btn btn-default checkout" >
+                                            <input type="text" onchange="watchProductQuantity()" class="quantity" id="quantityProduct" value="1" data-min-value="1" data-max-value="99" min="1"  pattern="[0-9]*"/>
+                                            <button class="up btn btn-default checkout" onclick="plusProduct()">
                                                     <i class="fa fa-plus"></i>
                                             </button>
-                                            <a href="#" class="btn btn-default add-to-cart" data-quantity="1"  data-id="{{$product['id']}}" ><i class="fa fa-shopping-cart"></i>В корзину</a>
+                                            <a href="javascript:void(0);" class="btn btn-default add-to-cart" id="addToBasketButton" data-id="{{$product['id']}}" onclick="addToBasket()"><i class="fa fa-shopping-cart"></i>В корзину</a>
                                         </span>
                                     </div>
                                 </span>
@@ -131,7 +131,7 @@
                                                         <h4>{{ $sliderItem['sum'] }} грн</h4>
                                                     </div>
                                                     @if ($sliderItem['is_new'])
-                                                        <img  src="/images/new.png" class="new_1" alt="" />
+                                                        <img src="/images/new.png" class="new_1" alt="" />
                                                     @endif
                                                 </div>
                                             </div>
@@ -150,7 +150,75 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
+        function minusProduct()
+        {
+            let quantity = $('#quantityProduct');
+            if(!(quantity.val() <= 1)){
+                quantity.val((parseInt(quantity.val()) - 1));
+            }
+        }
 
+        function plusProduct()
+        {
+            let quantity = $('#quantityProduct');
+            if(!(quantity.val() >= 99)){
+                quantity.val((parseInt(quantity.val()) + 1));
+            }
+        }
+
+        function watchProductQuantity()
+        {
+            let quantity = $('#quantityProduct');
+            if(quantity.val() >= 99){
+                quantity.val(99);
+            }
+            if(quantity.val() <= 1){
+                quantity.val(1);
+            }
+        }
+
+        function addToBasket()
+        {
+            let quantity = $('#quantityProduct').val();
+            let productId = $('#addToBasketButton').data('id');
+            this.showLoading();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: '/addProductToBasket',
+                data: {
+                    quantity: quantity,
+                    productId: productId
+                },
+                method: 'post',
+                success: function(data){
+                    $("#loader").hide();
+                    if(data.result){
+                        swal({
+                            text: "Товар успешно добавлен в корзину!",
+                            icon: "success",
+                            buttons: false,
+                            timer: 1000
+                        });
+                        getBasket()
+                        // alert('Товар успешно добавлен в корзину');
+                    }
+                },
+                error: function(error){
+                    $("#loader").hide();
+                    swal({
+                        text: error,
+                        icon: "error",
+                        buttons: false,
+                        timer: 1000
+                    });
+                },
+            });
+        }
     </script>
 @endsection
 @section('style')

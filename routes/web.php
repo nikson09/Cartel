@@ -18,9 +18,16 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/category/{id}', 'CategoriesController@category')->name('category');
+
 Route::get('/brand/{id}/category/{category_id}', 'BrandsController@brand')->name('brand');
+
 Route::get('/country/{id}/category/{category_id}', 'CountriesController@country')->name('country');
+
+Route::post('/addProductToBasket', 'BasketController@addProductToBasket')->name('addProductToBasket');
+Route::get('/getBasket', 'BasketController@getBasket')->name('getBasket');
+Route::get('/fetchBasketProducts', 'BasketController@fetchBasketProducts')->name('fetchBasketProducts');
 
 Route::group(['prefix' => 'product'], function () {
     Route::get('/{id}', 'ProductController@productView')->name('product.view');

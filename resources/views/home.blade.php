@@ -77,7 +77,7 @@
                                                                     <h5 class="pric">{{$product['sum']}} грн</h5>
                                                                 @endif
                                                             </div>
-                                                            <a href="javascript:void(0);" style="margin-top: 0.5vw;" class="btn btn-default add-to-cart" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>В корзину</a>
+                                                            <a href="javascript:void(0);" style="margin-top: 0.5vw;" onclick="addToBasketOneProduct({{ $product['id'] }})" class="btn btn-default add-to-cart" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>В корзину</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -148,7 +148,7 @@
                                                             <h5 class="pric">{{$product['sum']}} грн</h5>
                                                         @endif
                                                     </div>
-                                                    <a href="javascript:void(0);" style="margin-top: 0.5vw;" class="btn btn-default add-to-cart" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>В корзину</a>
+                                                    <a href="javascript:void(0);" onclick="addToBasketOneProduct({{ $product['id'] }})" style="margin-top: 0.5vw;" class="btn btn-default add-to-cart" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>В корзину</a>
                                                 </div>
                                             </div>
                                         </div>

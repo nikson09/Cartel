@@ -64,7 +64,7 @@
                                                         <h5 class="pric">{{$product['sum']}} грн</h5>
                                                     @endif
                                                 </div>
-                                                <a href="javascript:void(0);" style="margin-top: 0.5vw;" class="btn btn-default add-to-cart" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>В корзину</a>
+                                                <a href="javascript:void(0);" style="margin-top: 0.5vw;" class="btn btn-default add-to-cart" onclick="addToBasketOneProduct({{ $product['id'] }})" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>В корзину</a>
                                             </div>
                                         </div>
                                     </div>

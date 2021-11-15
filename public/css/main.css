@@ -1776,3 +1776,62 @@ float:left;
 .item.cycle-slide {
     margin-left: 1vw;
 }
+.counter-inner.counter-inner--cart.clr.rel {
+    background-color: #e7e7e7;
+    border-radius: 0.5vw;
+    height: 2.7vw;
+    padding: 0.2vw 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.5vw 0 0;
+    width: 100%;
+}
+.down {
+    color: #4f4f4f;
+    font: normal 1.375em OpenSansExtraBold,sans-serif;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative;
+    width: 2vw;
+    text-align: center;
+    float: left;
+}
+.input--count {
+    background-color: #fff;
+    border-radius: .3vw;
+    -webkit-box-shadow: inset 0 3px 4px rgb(0 0 1 / 4%);
+    box-shadow: inset 0 3px 4px rgb(0 0 1 / 4%);
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    width: 3vw;
+    height: 2.3vw;
+    color: #4f4f4f;
+    font: normal 0.875em OpenSansRegular,sans-serif;
+    text-align: center;
+    vertical-align: top;
+    float: left;
+    -webkit-text-fill-color: #4f4f4f;
+    opacity: 1;
+}
+.up {
+    color: #4f4f4f;
+    font: normal 1.375em OpenSansExtraBold,sans-serif;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    width: 2vw;
+    text-align: center;
+    float: left;
+}
+span.down.down--float:hover {
+    color: black;
+}
+span.up.up--float:hover {
+    color: black;
+}
+
+.button-circle{
+    border-radius: 1vw;
+}

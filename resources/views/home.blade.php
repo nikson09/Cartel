@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card text-center" style="border:none">
                 <div class="card-body">
-                    @if(!empty($recomendedProducts))
+                    @if(!empty($recommendedProducts) && count($recommendedProducts) > 0)
                         <div class="recommended_items"><!--recommended_items-->
                             <h3 class="title text-center">Рекомендуемые товары</h3>
 
@@ -20,7 +20,7 @@
                                  data-cycle-prev="#prev"
                                  data-cycle-next="#next"
                             >
-                                @foreach ($recomendedProducts as $product)
+                                @foreach ($recommendedProducts as $product)
                                         <div class="col-4">
                                             <div class="item">
                                             <div class="product-image-wrapper">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     @endif
-                    @if(!empty($latestProducts))
+                    @if(!empty($latestProducts) && count($latestProducts) > 0)
                     <div class="last_items">
                         <h3 class="title text-center">Новые товары</h3>
                             <div class="row justify-content-center ">

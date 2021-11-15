@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="{{ asset('css/media-queries.css') }}">
     <link rel="stylesheet" href="{{ asset('css/awesomplete.css') }}">
     <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+    <!-- CSS file -->
+    <link rel="stylesheet" href="{{ asset('css/easy-autocomplete.min.css') }}">
+
+    <!-- Additional CSS Themes file - not required-->
+    <link rel="stylesheet" href="{{ asset('css/easy-autocomplete.themes.min.css') }}">
     @yield('style')
 </head>
 <body>
@@ -318,28 +323,34 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <table class="table table-image">
-                            <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col">Наименование</th>
-                                <th scope="col">Цена</th>
-                                <th scope="col">Количество</th>
-                                <th scope="col">Всего</th>
-                                <th scope="col">Действие</th>
-                            </tr>
-                            </thead>
-                            <tbody id="cart-body">
+                        <div id="basket-modal-body">
+                            <div class="d-flex justify-content-end" style="margin-bottom: 1vw;">
+                                <button type="button" class="btn btn-outline-danger" onclick="removeAllProductsFromBasket()">Очистить корзину</button>
+                            </div>
+                            <table class="table table-image">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Изображение</th>
+                                    <th scope="col">Наименование</th>
+                                    <th scope="col">Цена</th>
+                                    <th scope="col">Количество</th>
+                                    <th scope="col">Всего</th>
+                                    <th scope="col">Убрать товар</th>
+                                </tr>
+                                </thead>
+                                <tbody id="cart-body">
 
-                            </tbody>
-                        </table>
-                        <div class="d-flex justify-content-end">
-                            <h5>Всего: <span class="price text-success"><span id="total_cart_sum">0</span> грн</span></h5>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end">
+                                <h5>Всего: <span class="price text-primary"><span id="total_cart_sum">0</span> грн</span></h5>
+                            </div>
                         </div>
+                        <p class="text-center" id="cart-is-empty">Корзина Пустая</p>
                     </div>
                     <div class="modal-footer border-top-0 d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                        <button type="button" class="btn btn-success">Оформить заказ</button>
+                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Закрыть</button>
+                        <a type="button" class="btn btn-outline-primary" id="checkout_button" href="/checkout">Оформить заказ</a>
                     </div>
                 </div>
             </div>
@@ -366,6 +377,7 @@
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <script>
     $(window).on('load', function() {
         setTimeout(function () {
@@ -402,6 +414,7 @@
 <script src="{{ asset('js/jquery.cycle2.min.js')}}"></script>
 <script src="{{ asset('js/jquery.cycle2.carousel.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script type="text/javascript">
     $(function(){
         getBasket();
@@ -445,8 +458,8 @@
         this.showLoading();
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
         });
 
         $.ajax({
@@ -482,10 +495,11 @@
 
     function openBasket()
     {
+        this.showLoading();
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
         });
 
         $.ajax({
@@ -495,30 +509,260 @@
             success: function(data){
                 $("#loader").hide();
                 let products = data.products;
-                let html = '';
-                products.forEach((value, index) => {
-                    html += '                            <tr>\n' +
-                        '                                <td>\n' +
-                        '                                    <img style="width: 12vw;height: auto" src="/storage/products/'+ value.image +'" class="img-fluid img-thumbnail" alt="Sheep">\n' +
-                        '                                </td>\n' +
-                        '                                <td>'+ value.name +'</td>\n' +
-                        '                                <td style="white-space: nowrap;">'+ value.sum +' грн</td>\n' +
-                        '                                <td class="qty"><input type="text" class="form-control" id="input1" value="'+ value.quantity +'"></td>\n' +
-                        '                                <td style="white-space: nowrap;">'+ (parseInt(value.sum) * parseInt(value.quantity)) +' грн</td>\n' +
-                        '                                <td>\n' +
-                        '                                    <a href="#" class="btn btn-danger btn-sm">\n' +
-                        '                                        <i class="fa fa-times"></i>\n' +
-                        '                                    </a>\n' +
-                        '                                </td>\n' +
-                        '                            </tr>';
-                });
-                $('#cart-body').html(html);
+                if(data.sum <= 0){
+                    $('#basket-modal-body').hide();
+                    $('#checkout_button').hide();
+                    $('#cart-is-empty').show();
+                } else {
+                    let html = drawPage(products);
+                    $('#cart-body').html(html);
+                    $('#total_cart_sum').text(data.sum);
+
+                    $('#basket-modal-body').show();
+                    $('#checkout_button').show();
+                    $('#cart-is-empty').hide();
+                }
                 $('#cartModal').modal('show');
-                $('#total_cart_sum').text(data.sum);
             },
             error: function(error){
                 $("#loader").hide();
+            },
+        });
+    }
 
+    function reloadBasket()
+    {
+        this.showLoading();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+        });
+
+        $.ajax({
+            url: '/fetchBasketProducts',
+            data: {},
+            method: 'get',
+            success: function (data) {
+                $("#loader").hide();
+                let products = data.products;
+                if(data.sum <= 0){
+                    $('#basket-modal-body').hide();
+                    $('#checkout_button').hide();
+                    $('#cart-is-empty').show();
+                } else {
+                    let html = drawPage(products);
+                    $('#cart-body').html(html);
+                    $('#total_cart_sum').text(data.sum);
+                    $('#basket-modal-body').show();
+                    $('#checkout_button').show();
+                    $('#cart-is-empty').hide();
+                }
+            }
+        });
+    }
+
+    function basketProductMinus(id)
+    {
+        let productId = id;
+        this.showLoading();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+        });
+
+        $.ajax({
+            url: '/removeOneProductFromBasket',
+            data: {
+                productId: productId
+            },
+            method: 'post',
+            success: function(data){
+                $("#loader").hide();
+                if(data.result){
+                    reloadBasket();
+                    getBasket();
+                }
+            },
+            error: function(error){
+                $("#loader").hide();
+                swal({
+                    text: error,
+                    icon: "error",
+                    buttons: false,
+                    timer: 1000
+                });
+            },
+        });
+    }
+
+    function basketProductPlus(id)
+    {
+        let quantity = 1;
+        let productId = id;
+        this.showLoading();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+        });
+
+        $.ajax({
+            url: '/addProductToBasket',
+            data: {
+                quantity: quantity,
+                productId: productId
+            },
+            method: 'post',
+            success: function(data){
+                $("#loader").hide();
+                if(data.result){
+                    reloadBasket();
+                    getBasket();
+                }
+            },
+            error: function(error){
+                $("#loader").hide();
+                swal({
+                    text: error,
+                    icon: "error",
+                    buttons: false,
+                    timer: 1000
+                });
+            },
+        });
+    }
+
+    function drawPage(products)
+    {
+        let html = '';
+        products.forEach((value, index) => {
+            html += '                            <tr>\n' +
+                '                                <td>\n' +
+                '                                    <img style="width: 12vw;height: auto" src="/storage/products/'+ value.image +'" class="img-fluid img-thumbnail" alt="Sheep">\n' +
+                '                                </td>\n' +
+                '                                <td>'+ value.name +'</td>\n' +
+                '                                <td style="white-space: nowrap;" class="text-primary">'+ value.sum +' грн</td>\n' +
+                '                                <td class="qty">' +
+                '<div class="counter-inner counter-inner--cart clr rel">\n' +
+                '\t\t\t\t\t\t\t\t\t\t\t\t\t<span class="down down--float" onclick="basketProductMinus('+ value.id +');">-</span>\n' +
+                '\t\t\t\t\t\t\t\t\t\t\t\t\t<input type="text" maxlength="7" onkeyup="changeQuantity('+ value.id +', this);" value="'+value.quantity+'" class="input--count countInput clearCError">\n' +
+                '\t\t\t\t\t\t\t\t\t\t\t\t\t<span class="up up--float" onclick="basketProductPlus('+ value.id +');">+</span>\n' +
+                '\t\t\t\t\t\t\t\t\t\t\t\t</div></td>\n' +
+                '                                <td style="white-space: nowrap;" class="text-primary">'+ (parseInt(value.sum) * parseInt(value.quantity)) +' грн</td>\n' +
+                '                                <td>\n' +
+                '                                    <a href="javascript:void(0);" onclick="removeOneProductFromBasket('+ value.id +')" class="btn btn-danger btn-sm button-circle">\n' +
+                '                                        <i class="fa fa-times"></i>\n' +
+                '                                    </a>\n' +
+                '                                </td>\n' +
+                '                            </tr>';
+        });
+        return html;
+    }
+
+    function changeQuantity(id, that)
+    {
+        let quantity = $(that).val();
+        let productId = id;
+        this.showLoading();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+        });
+
+        $.ajax({
+            url: '/changeQuantityProductInBasket',
+            data: {
+                quantity: quantity,
+                productId: productId
+            },
+            method: 'post',
+            success: function(data){
+                $("#loader").hide();
+                if(data.result){
+                    reloadBasket();
+                    getBasket();
+                }
+            },
+            error: function(error){
+                $("#loader").hide();
+                swal({
+                    text: error,
+                    icon: "error",
+                    buttons: false,
+                    timer: 1000
+                });
+            },
+        });
+    }
+
+    function removeAllProductsFromBasket() {
+        this.showLoading();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+        });
+
+        $.ajax({
+            url: '/removeAllBasket',
+            data: {
+
+            },
+            method: 'post',
+            success: function(data){
+                $("#loader").hide();
+                if(data.result){
+                    reloadBasket();
+                    getBasket();
+                }
+            },
+            error: function(error){
+                $("#loader").hide();
+                swal({
+                    text: error,
+                    icon: "error",
+                    buttons: false,
+                    timer: 1000
+                });
+            },
+        });
+    }
+
+    function removeOneProductFromBasket(id)
+    {
+        let productId = id;
+        this.showLoading();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+        });
+
+        $.ajax({
+            url: '/removeOneProductFromBasket',
+            data: {
+                productId: productId,
+                removeAll: true
+            },
+            method: 'post',
+            success: function(data){
+                $("#loader").hide();
+                if(data.result){
+                    reloadBasket();
+                    getBasket();
+                }
+            },
+            error: function(error){
+                $("#loader").hide();
+                swal({
+                    text: error,
+                    icon: "error",
+                    buttons: false,
+                    timer: 1000
+                });
             },
         });
     }

@@ -17,24 +17,42 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
+//home page
 Route::get('/home', 'HomeController@index')->name('home');
 
+//category pages
 Route::get('/category/{id}', 'CategoriesController@category')->name('category');
 
+//brand pages
 Route::get('/brand/{id}/category/{category_id}', 'BrandsController@brand')->name('brand');
 
+//countries pages
 Route::get('/country/{id}/category/{category_id}', 'CountriesController@country')->name('country');
 
-Route::post('/addProductToBasket', 'BasketController@addProductToBasket')->name('addProductToBasket');
-Route::get('/getBasket', 'BasketController@getBasket')->name('getBasket');
-Route::get('/fetchBasketProducts', 'BasketController@fetchBasketProducts')->name('fetchBasketProducts');
-
+//product view
 Route::group(['prefix' => 'product'], function () {
     Route::get('/{id}', 'ProductController@productView')->name('product.view');
 });
 
+//basket functions
+Route::post('/addProductToBasket', 'BasketController@addProductToBasket')->name('addProductToBasket');
+Route::get('/getBasket', 'BasketController@getBasket')->name('getBasket');
+Route::get('/fetchBasketProducts', 'BasketController@fetchBasketProducts')->name('fetchBasketProducts');
+
+Route::post('/changeQuantityProductInBasket', 'BasketController@changeQuantityProductInBasket')->name('changeQuantityProductInBasket');
+Route::post('/removeOneProductFromBasket', 'BasketController@removeOneProductFromBasket')->name('removeOneProductFromBasket');
+Route::post('/removeAllBasket', 'BasketController@removeAllBasket')->name('removeAllBasket');
+
+//checkout
+Route::get('/checkout', 'CheckoutController@checkout')->name('checkout');
+Route::get('/getRegions', 'CheckoutController@getRegions')->name('getRegions');
+Route::get('/getRegionCities', 'CheckoutController@getRegionCities')->name('getRegionCities');
+Route::get('/getPostalOffices', 'CheckoutController@getPostalOffices')->name('getPostalOffices');
+
+//global functions
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
+//admin pages
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@home')->name('admin_home');
     Route::get('/icons', 'AdminController@icons')->name('admin_icons');

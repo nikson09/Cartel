@@ -16,12 +16,12 @@ class BasketController extends Controller
 
         $basket = Session::get('basket_products');
 
-        if(isset($basket[$product->id])):
+        if(isset($basket[$product->id])) {
             $basket[$product->id]['quantity'] += $quantity;
-        else:
+        } else {
             $basket[$product->id]['id'] = $product->id;
-            $basket[$product->id]['quantity'] = $quantity; // Dynamically add initial qty
-        endif;
+            $basket[$product->id]['quantity'] = $quantity;
+        }
 
         Session::put('basket_products', $basket);
 
@@ -70,6 +70,60 @@ class BasketController extends Controller
             'result' => true,
             'products' => $products,
             'sum' => $sum
+        ], 200);
+    }
+
+    public function changeQuantityProductInBasket(Request $request)
+    {
+        $productId = $request->productId;
+        $quantity = $request->quantity > 99 ? 99 : $request->quantity ?? 1;
+        $product = Product::findOrFail($productId);
+
+        $basket = Session::get('basket_products');
+
+        if(isset($basket[$product->id])) {
+            $basket[$product->id]['quantity'] = $quantity;
+        } else {
+            $basket[$product->id]['id'] = $product->id;
+            $basket[$product->id]['quantity'] = $quantity;
+        }
+
+        Session::put('basket_products', $basket);
+
+        return response()->json([
+            'result' => true,
+        ], 200);
+    }
+
+    public function removeOneProductFromBasket(Request $request)
+    {
+        $productId = $request->productId;
+        $product = Product::findOrFail($productId);
+        $removeAll = $request->removeAll ?? false;
+
+        $basket = Session::get('basket_products');
+
+        if(isset($basket[$product->id])) {
+            if($basket[$product->id]['quantity'] !== 1 && !$removeAll){
+                $basket[$product->id]['quantity'] -= 1;
+            } else {
+                unset($basket[$product->id]);
+            }
+        }
+
+        Session::put('basket_products', $basket);
+
+        return response()->json([
+            'result' => true,
+        ], 200);
+    }
+
+    public function removeAllBasket(Request $request)
+    {
+        Session::forget('basket_products');
+
+        return response()->json([
+            'result' => true,
         ], 200);
     }
 }

@@ -22,13 +22,15 @@ class HomeController extends Controller
             ])->whereNull('parent')->get();
         $barMenus   = BarMenu::where('active', true)->get();
         $latestProducts = Product::with(['country', 'category', 'brand'])->where(['is_new' => true])->get();
-        $recomendedProducts = Product::with(['country', 'category', 'brand'])->where(['is_recomended' => true])->get();
+        $recommendedProducts = Product::with(['country', 'category', 'brand'])->where(['is_recomended' => true])->get();
+
 
         return view('home',
         [
             'categories' => $categories,
             'barMenus' => $barMenus,
-            'latestProducts' => $latestProducts
+            'latestProducts' => $latestProducts,
+            'recommendedProducts' => $recommendedProducts
         ]);
     }
 }

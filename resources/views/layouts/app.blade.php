@@ -23,11 +23,7 @@
     <link rel="stylesheet" href="{{ asset('css/media-queries.css') }}">
     <link rel="stylesheet" href="{{ asset('css/awesomplete.css') }}">
     <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="all">
-    <!-- CSS file -->
-    <link rel="stylesheet" href="{{ asset('css/easy-autocomplete.min.css') }}">
 
-    <!-- Additional CSS Themes file - not required-->
-    <link rel="stylesheet" href="{{ asset('css/easy-autocomplete.themes.min.css') }}">
     @yield('style')
 </head>
 <body>
@@ -558,6 +554,8 @@
                     $('#checkout_button').show();
                     $('#cart-is-empty').hide();
                 }
+                let event = new Event('reloadBasket');
+                document.dispatchEvent(event);
             }
         });
     }

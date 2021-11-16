@@ -48,6 +48,9 @@ Route::get('/checkout', 'CheckoutController@checkout')->name('checkout');
 Route::get('/getRegions', 'CheckoutController@getRegions')->name('getRegions');
 Route::get('/getRegionCities', 'CheckoutController@getRegionCities')->name('getRegionCities');
 Route::get('/getPostalOffices', 'CheckoutController@getPostalOffices')->name('getPostalOffices');
+Route::post('/submitCheckout', 'CheckoutController@submitCheckout')->name('submitCheckout');
+
+Route::get('/checkout/success/{id}', 'CheckoutController@success')->name('success');
 
 //global functions
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -115,5 +118,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/edit/{id}', 'BarMenuController@edit')->name('admin_barMenus_edit');
         Route::post('/editBarMenu/{id}', 'BarMenuController@editBarMenu')->name('admin_barMenus_edit_post');
         Route::get('/delete/{id}', 'BarMenuController@delete')->name('admin_barMenus_delete');
+    });
+
+    Route::namespace('Admin')->prefix('order')->group(function () {
+        Route::post('/{id}', 'OrderController@viewOrder')->name('admin.view.order');
     });
 });

@@ -56,12 +56,14 @@ class BasketController extends Controller
         $basket = Session::get('basket_products');
         $sum = 0;
         $products = [];
+        $quantity = 0;
 
         if(!empty($basket)){
             foreach($basket as $productBasket){
                 $product = Product::find($productBasket['id']);
                 $sum += ($productBasket['quantity'] * $product->sum);
                 $product['quantity'] = $productBasket['quantity'];
+                $quantity += $productBasket['quantity'];
                 $products[] = $product;
             }
         }
@@ -69,7 +71,8 @@ class BasketController extends Controller
         return response()->json([
             'result' => true,
             'products' => $products,
-            'sum' => $sum
+            'sum' => $sum,
+            'quantity' => $quantity
         ], 200);
     }
 

@@ -32,7 +32,7 @@
                                 <div id="related_div" style="display: none">
                                     <p id="relation_title"></p>
                                     <select id="related_id" required class="custom-select" name="related_id">
-
+                                        <option value="0" selected></option>
                                     </select>
                                 </div>
 

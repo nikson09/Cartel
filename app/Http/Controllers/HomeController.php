@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Baner;
+use App\BanerRelation;
 use App\BarMenu;
 use App\Category;
 use App\Product;
@@ -23,14 +25,17 @@ class HomeController extends Controller
         $barMenus   = BarMenu::where('active', true)->get();
         $latestProducts = Product::with(['country', 'category', 'brand'])->where(['is_new' => true])->get();
         $recommendedProducts = Product::with(['country', 'category', 'brand'])->where(['is_recomended' => true])->get();
-
+        $banners = Baner::whereHas('bannerRelation', function ($query) {
+            return $query->where('baner_type', BanerRelation::HOME);
+        })->get();
 
         return view('home',
         [
             'categories' => $categories,
             'barMenus' => $barMenus,
             'latestProducts' => $latestProducts,
-            'recommendedProducts' => $recommendedProducts
+            'recommendedProducts' => $recommendedProducts,
+            'banners' => $banners
         ]);
     }
 }

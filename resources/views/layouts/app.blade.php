@@ -289,6 +289,7 @@
         </div><!--Главное меню Алкоголя-->
     </div>
     </header>
+        @yield('content_for_banners')
         <main class="py-4">
             <div class="container">
                 <div class="row">

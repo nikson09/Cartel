@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Baner;
+use App\BanerRelation;
 use App\Brand;
 use App\Category;
 use App\Country;
@@ -39,13 +41,21 @@ class CountriesController extends Controller
 
         $podCategories = Category::where('parent', $categoryId)->get();
 
+        $banners = Baner::whereHas('bannerRelation', function ($query) use($country){
+            return $query->where([
+                'baner_type' => BanerRelation::COUNTRY,
+                'related_id' => $country->id
+            ]);
+        })->get();
+
         return view('country', [
             'category'  => $category,
             'country' => $country,
             'products' => $products,
             'productCountries' => $productCountries,
             'productBrands' => $productBrands,
-            'podCategories' => $podCategories
+            'podCategories' => $podCategories,
+            'banners' => $banners
         ]);
     }
 }

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@extends('layouts.baner')
 @extends('layouts.sectionCategory')
 
 @section('content')

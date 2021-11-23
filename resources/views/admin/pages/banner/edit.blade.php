@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['activePage' => 'brands.blade.php', 'titlePage' => __('Table List')])
+@extends('admin.layouts.app', ['activePage' => 'banners', 'titlePage' => __('Table List')])
 
 @section('content')
     <div class="content">
@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="card" style="height: 100%;">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Редактировать банер "{{ $banner->name }}"</h4>
+                            <h4 class="card-title ">Редактировать баннер "{{ $banner->name }}"</h4>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('admin_banner_edit_post', ['id' => $banner->id]) }}" method="post" enctype="multipart/form-data">
@@ -28,6 +28,24 @@
                                     <option {{ $brand->status === 1 ? 'selected' : '' }} value="1">Да</option>
                                     <option {{ $brand->status === 0 ? 'selected' : '' }} value="0">Нет</option>
                                 </select>
+
+                                <p>Ссылка баннера</p>
+                                <input required class="form-control" type="text" name="href" placeholder="Ссылка баннера" value="{{ $banner->href }}">
+
+                                <p>Тип баннера</p>
+                                <select id="relation_id" required class="custom-select" name="relation_id" onchange="fetchRelations()">
+                                    <option value="">Выбрать из списка</option>
+                                    @foreach($bannerTypes as $key => $bannerType)
+                                        <option value="{{ $key }}" selected="">{{$bannerType}}</option>
+                                    @endforeach
+                                </select>
+
+                                <div id="related_div" style="display: none">
+                                    <p id="relation_title"></p>
+                                    <select id="related_id" required class="custom-select" name="related_id">
+                                        <option value="0" selected></option>
+                                    </select>
+                                </div>
                                 <div  style="justify-content: center;display: flex;">
                                     <button type="submit" class="btn btn-round btn-default">Редактировать бренд</button>
                                 </div>

@@ -87,20 +87,27 @@ class BannersController extends Controller
 
     public function edit($id)
     {
-        $banner = Baner::find($id);
+        $banner = Baner::with('bannerRelation')->find($id);
         $pageSlug = 'banners';
         $bannerTypes = BanerRelation::BANNER_TYPES;
+        $relations = $this->fetchBannerRelationsForController($banner->bannerRelation->baner_type);
 
-        return view('admin.pages.banner.edit', ['pageSlug' => $pageSlug, 'banner' => $banner, 'bannerTypes' => $bannerTypes]);
+        return view('admin.pages.banner.edit', [
+            'pageSlug' => $pageSlug,
+            'banner' => $banner,
+            'bannerTypes' => $bannerTypes,
+            'relations' => $relations
+        ]);
     }
 
     public function editBanner($id, Request $request)
     {
         $attribute = Baner::find($id);
 
-        $banerRelated = BanerRelation::find($attribute->related_id);
+        $banerRelated = BanerRelation::find($attribute->relation_id);
         $banerRelated->baner_type = $request->relation_id;
         $banerRelated->related_id = $request->related_id;
+        $banerRelated->update();
 
         $attribute->href = $request->href;
         $attribute->order_line = $request->order_line;
@@ -114,15 +121,17 @@ class BannersController extends Controller
         $attribute->relation_id = $request->relation_id;
         $attribute->update();
 
-        return redirect()->route('admin_banner');
+        return redirect()->route('admin_banners');
     }
 
     public function delete($id)
     {
         $attribute = Baner::find($id);
+        $banerRelated = BanerRelation::find($attribute->relation_id);
+        $banerRelated->delete();
         $attribute->delete();
 
-        return redirect()->route('admin_banner');
+        return redirect()->route('admin_banners');
     }
 
     public function fetchBannerRelations(Request $request)
@@ -164,5 +173,43 @@ class BannersController extends Controller
         return response()->json([
             'relations' => $relations
         ], 200);
+    }
+
+    public function fetchBannerRelationsForController($bannerType)
+    {
+        $relations = [];
+        switch ($bannerType) {
+            case BanerRelation::HOME:
+                break;
+            case BanerRelation::CATEGORY:
+                $categories = Category::where('status', true)->get();
+                foreach ($categories as $category){
+                    $relations[] = [
+                        'key' => $category->id,
+                        'value' => $category->name
+                    ];
+                }
+                break;
+            case BanerRelation::COUNTRY:
+                $countries = Country::where('status', true)->get();
+                foreach ($countries as $country){
+                    $relations[] = [
+                        'key' => $country->id,
+                        'value' => $country->name
+                    ];
+                }
+                break;
+            case BanerRelation::BRAND:
+                $brands = Brand::where('status', true)->get();
+                foreach ($brands as $brand){
+                    $relations[] = [
+                        'key' => $brand->id,
+                        'value' => $brand->name
+                    ];
+                }
+                break;
+        }
+
+        return $relations;
     }
 }

@@ -70,7 +70,7 @@
                         </li>
                         <li @if ($pageSlug == 'banners') class="active " @endif>
                             <a href="{{ route('admin_banners') }}">
-                                <i class="tim-icons icon-globe-2"></i>
+                                <i class="tim-icons icon-image-02"></i>
                                 <p>Баннеры</p>
                             </a>
                         </li>

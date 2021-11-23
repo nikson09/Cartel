@@ -30,7 +30,7 @@
                                 </select>
 
                                 <div id="related_div" style="display: none">
-                                    <p id="relation_title"></p>
+                                    <p id="relation_title">Выбрать одну категорию из типа баннера</p>
                                     <select id="related_id" required class="custom-select" name="related_id">
                                         <option value="0" selected></option>
                                     </select>
@@ -82,9 +82,12 @@
                         html += '<option value="'+ value.key +'">'+ value.value +'</option>'
                     });
 
-                    if(relations.length > 1){
+                    if(relations.length > 0){
                         $('#related_div').show();
+                    } else {
+                        html = '<option value="0" selected></option>';
                     }
+
                     $('#relation_title').html('Выбрать одну категорию из типа баннера');
                     $('#related_id').html(html);
 

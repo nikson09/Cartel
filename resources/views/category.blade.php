@@ -93,37 +93,41 @@
                         </div>
                     </div>
                 <br>
-                    <div class="features_items"><!--features_items-->
-                        <h5 class="title text-center">Брэнды</h5>
-                        <div class="Wine_countrys">
-                            <div class="row justify-content-center">
-                                @foreach($productBrands as $prodCat)
-                                <div class="single-products" style="position: relative;margin-right: 5px;width: 200px;height: 123px;margin-top: 17px;margin-bottom: 39px;">
-                                    <div class="productinfo text-center">
-                                        <a href="/brand/{{ $prodCat['id'] }}/category/{{ $category->id }}"> <img width="auto" height="215,783" src="{{Storage::url('public/brands/'. $prodCat['image'])}}" alt="" /></a>
-                                        <p><a href="/brand/{{ $prodCat['id'] }}/category/{{ $category->id }}">{{ $prodCat['name'] }}</a></p>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="features_items"><!--features_items-->
-                        <h5 class="title text-center">Подкатегории</h5>
-                        <div class="Wine_countrys">
-                            <div class="row justify-content-center">
-                                @foreach($podCategories as $prodCat)
+                    @if(count($productBrands) > 0)
+                        <div class="features_items"><!--features_items-->
+                            <h5 class="title text-center">Бренды</h5>
+                            <div class="Wine_countrys">
+                                <div class="row justify-content-center">
+                                    @foreach($productBrands as $prodCat)
                                     <div class="single-products" style="position: relative;margin-right: 5px;width: 200px;height: 123px;margin-top: 17px;margin-bottom: 39px;">
                                         <div class="productinfo text-center">
-                                            <a href="/category/{{ $prodCat['id'] }}"> <img width="auto" height="215,783" src="{{Storage::url('public/categories/'. $prodCat['image'])}}" alt="" /></a>
-                                            <p><a href="/category/{{ $prodCat['id'] }}">{{ $prodCat['name'] }}</a></p>
+                                            <a href="/brand/{{ $prodCat['id'] }}/category/{{ $category->id }}"> <img width="auto" height="215,783" src="{{Storage::url('public/brands/'. $prodCat['image'])}}" alt="" /></a>
+                                            <p><a href="/brand/{{ $prodCat['id'] }}/category/{{ $category->id }}">{{ $prodCat['name'] }}</a></p>
                                         </div>
                                     </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
+                    @if(count($podCategories) > 0)
+                        <br>
+                        <div class="features_items"><!--features_items-->
+                            <h5 class="title text-center">Подкатегории</h5>
+                            <div class="Wine_countrys">
+                                <div class="row justify-content-center">
+                                    @foreach($podCategories as $prodCat)
+                                        <div class="single-products" style="position: relative;margin-right: 5px;width: 200px;height: 123px;margin-top: 17px;margin-bottom: 39px;">
+                                            <div class="productinfo text-center">
+                                                <a href="/category/{{ $prodCat['id'] }}"> <img width="auto" height="215,783" src="{{Storage::url('public/categories/'. $prodCat['image'])}}" alt="" /></a>
+                                                <p><a href="/category/{{ $prodCat['id'] }}">{{ $prodCat['name'] }}</a></p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 @endif
         </div>
     </div>

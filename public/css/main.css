@@ -1793,9 +1793,7 @@ float:left;
     vertical-align: middle;
     cursor: pointer;
     position: relative;
-    width: 2vw;
     text-align: center;
-    float: left;
 }
 .input--count {
     background-color: #fff;
@@ -1821,9 +1819,7 @@ float:left;
     display: inline-block;
     vertical-align: middle;
     cursor: pointer;
-    width: 2vw;
     text-align: center;
-    float: left;
 }
 span.down.down--float:hover {
     color: black;
@@ -1834,4 +1830,12 @@ span.up.up--float:hover {
 
 .button-circle{
     border-radius: 1vw;
+}
+span.down.down--float {
+    float: left;
+    width: 2vw;
+}
+span.up.up--float {
+    float: right;
+    width: 2vw;
 }

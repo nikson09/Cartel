@@ -17894,5 +17894,22 @@ Copyright (c) 2015 Daniel Eden
 .sidebar .sidebar-wrapper>.nav [data-toggle="collapse"]~div>ul>li>a i, .sidebar .sidebar-wrapper .user .info [data-toggle="collapse"]~div>ul>li>a i, .off-canvas-sidebar .sidebar-wrapper>.nav [data-toggle="collapse"]~div>ul>li>a i, .off-canvas-sidebar .sidebar-wrapper .user .info [data-toggle="collapse"]~div>ul>li>a i {
   line-height: 32px;
 }
-
+div#brandsTable_info {
+    color: whitesmoke;
+}
+select {
+    background-color: white !important;
+}
+input[type="search"] {
+    background-color: white !important;
+}
+a#brandsTable_previous {
+    color: white !important;
+}
+a#brandsTable_next {
+    color: white !important;
+}
+select.custom-select {
+    color: black;
+}
 /*# sourceMappingURL=dashboard-free.css.map */

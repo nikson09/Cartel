@@ -68,6 +68,12 @@
                                 <p>Бренды</p>
                             </a>
                         </li>
+                        <li @if ($pageSlug == 'banners') class="active " @endif>
+                            <a href="{{ route('admin_banners') }}">
+                                <i class="tim-icons icon-globe-2"></i>
+                                <p>Баннеры</p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>

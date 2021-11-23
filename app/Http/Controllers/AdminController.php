@@ -63,4 +63,10 @@ class AdminController extends Controller
         $pageSlug = 'bar-menu';
         return view('admin.pages.bar_menus', ['pageSlug' => $pageSlug]);
     }
+
+    public function banners()
+    {
+        $pageSlug = 'banners';
+        return view('admin.pages.banners', ['pageSlug' => $pageSlug]);
+    }
 }

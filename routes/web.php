@@ -56,7 +56,7 @@ Route::get('/checkout/success/{id}', 'CheckoutController@success')->name('succes
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 //admin pages
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::get('/', 'AdminController@home')->name('admin_home');
     Route::get('/icons', 'AdminController@icons')->name('admin_icons');
     Route::get('/products', 'AdminController@products')->name('admin_products');
@@ -65,6 +65,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/brands', 'AdminController@brands')->name('admin_brands');
     Route::get('/countries', 'AdminController@countries')->name('admin_countries');
     Route::get('/bar_menus', 'AdminController@barMenus')->name('admin_barMenus');
+    Route::get('/banners', 'AdminController@banners')->name('admin_banners');
 
     Route::namespace('Admin')->prefix('product')->group(function () {
         Route::post('/get', 'ProductController@getProducts')->name('admin_product_get');
@@ -122,5 +123,15 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::namespace('Admin')->prefix('order')->group(function () {
         Route::post('/{id}', 'OrderController@viewOrder')->name('admin.view.order');
+    });
+
+    Route::namespace('Admin')->prefix('banner')->group(function () {
+        Route::post('/get', 'BannersController@getBanners')->name('admin_banner_get');
+        Route::get('/create', 'BannersController@create')->name('admin_banner_create');
+        Route::post('/createAttribute', 'BannersController@createBanner')->name('admin_banner_create_post');
+        Route::get('/edit/{id}', 'BannersController@edit')->name('admin_banner_edit');
+        Route::post('/editAttribute/{id}', 'BannersController@editBanner')->name('admin_banner_edit_post');
+        Route::get('/delete/{id}', 'BannersController@delete')->name('admin_banner_delete');
+        Route::post('/fetchBannerRelations', 'BannersController@fetchBannerRelations')->name('admin_banner_fetch_relation');
     });
 });

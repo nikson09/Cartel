@@ -17895,4 +17895,11 @@ Copyright (c) 2015 Daniel Eden
   line-height: 32px;
 }
 
+div#brandsTable_info {
+    color: whitesmoke;
+}
+select {
+    background-color: white;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */

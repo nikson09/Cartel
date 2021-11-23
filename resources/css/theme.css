@@ -61,3 +61,9 @@
   max-width: 530px;
   margin: 0 auto;
 }
+div#brandsTable_info {
+    color: whitesmoke;
+}
+select {
+    background-color: white;
+}

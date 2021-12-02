@@ -89,7 +89,6 @@ white-space: normal;
 
 }
 .pric {
-    margin-left: 0.5vw;
     margin-top: 1vw;
     height: 1.4vw;
     overflow: hidden;
@@ -304,19 +303,22 @@ white-space: normal;
     rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: space-between;
-    height: 4vw;
-    padding-right: 0.4vw;
+    height: 5vw;
+    padding-bottom: 1vw;
+    padding-right: 0.5vw;
 }
 .But_add a:hover{
-background-color:rgba(42, 38, 52, 1);
-    border-color:rgba(42, 38, 52, 1);
-    color:white;
+    background-color: rgba(42, 38, 52, 1);
+    border-color: rgba(42, 38, 52, 1);
+    color: #ffa912;
 
 }
 .But_add a{
-background-color:#C7A87A;
-    border-color: #C7A87A;
+    background-color: #ffa912;
+    border-color: #ffa912;
     color:white;
+    width: 8vw;
+    white-space: nowrap;
 }
 
 .Wine_colored img{
@@ -1093,8 +1095,7 @@ margin-top: 5px;
     height: 35px;
     float: left;
     border: 0;
-    background:
-    #C7A87A url("/images/search_ic.png") 50% 50% no-repeat;
+    background: #ffa912 url("/images/search_ic.png") 50% 50% no-repeat;
     cursor: pointer;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -1486,64 +1487,57 @@ border-radius: .25rem;
 overflow: hidden;
 }
 .product__discount {
-position: absolute;
-content: "";
-left: 17px;
-top: 5px;
-width: 40px;
-height: 40px;
-background-color:
-#C7A87A;
-border-radius: 50%;
-color:
-#fff;
-font-size: 15px;
-line-height: 40px;
-text-align: center;
-font-family: Trebuchet MS Bold,Arial,sans-serif;
-
+    position: absolute;
+    content: "";
+    left: 17px;
+    top: 5px;
+    width: 40px;
+    height: 40px;
+    background-color: #ffa912;
+    border-radius: 50%;
+    color:
+    #fff;
+    font-size: 15px;
+    line-height: 40px;
+    text-align: center;
+    font-family: Trebuchet MS Bold,Arial,sans-serif;
 }
 .g-price-old-uah::before {
     content: '';
-    width: 5vw;
+    width: 4.5vw;
     height: 1px;
     position: absolute;
     background: #fb515d;
-    left: 0;
+    left: .5vw;
     margin-top: 15px;
     margin-left: 0.4vw;
 }
 .g-price-old-uah {
     font-size: 1.2vw;
-    color:
-    #999;
-    height: 20px;
+    color: #999;
+    height: 1.5vw;
 }
 .g-price-old-uah-sign {
     margin-left: -1px;
     font-size: 17px;
 }
 .discount_date {
-
     content: "";
     top: 0px;
-    width: 5vw;
-    height: 22px;
-    background-color:
-#C7A87A;
-border-radius: 8px;
-color:
-    #fff;
-    font-size: 10px;
+    width: 6vw;
+    height: 1.5vw;
+    background-color: #ffa912;
+    border-radius: 8px;
+    color: #fff;
+    font-size: .8vw;
     line-height: 23px;
     text-align: center;
     font-family: Trebuchet MS Bold,Arial,sans-serif;
-
     margin-bottom: -10px;
-
-
     display: block;
-    margin-left: 75px;
+    /* margin-left: 75px; */
+    position: absolute;
+    left: 4.6vw;
 }
 .g-price-old-uah_s {
     font-size: 20px;

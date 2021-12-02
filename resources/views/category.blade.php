@@ -55,7 +55,7 @@
                                                         @endif
                                                     </span>
                                                 </div>
-                                                <div class="But_add">
+                                                <div class="But_add" style="width: 50%">
                                                     <div class="d-block">
                                                         @if ($product['is_sales'])
                                                             <div class="g-price-old-uah">

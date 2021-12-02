@@ -31,7 +31,7 @@ p{
     text-align: center;
 }
 header a{
-    color:#C7A87A;
+    color: #fff;
 }
 a:hover ,a focus{
 color: #7b7b7b;
@@ -103,7 +103,7 @@ footer{
 
 }
 .header_top a{
-    color: #C7A87A;
+    color: #fff;
     font-size: 14px;
 
 }
@@ -1157,8 +1157,8 @@ background-color:rgba(42, 38, 52, 1);
 .topNavBlock {
     position: relative;
     display: block;
-color: #C7A87A;
-margin-top: 13px;
+    color: #fff;
+    margin-top: 13px;
 }
 .auth {
     max-height: 35px;
@@ -1173,7 +1173,7 @@ padding: 0px 6px 0px 0px;
     box-sizing: border-box;
     width: 0.01vw;
     height: 3.5vw;
-    background: #C7A87A;
+    background: #fff;
     top: 0.5vw;
     right: -0.1vw;
 }
@@ -1365,7 +1365,6 @@ color:#C7A87A;
 }
 
 .navbar-brand {
-    margin-left: 22px;
     margin-right: 2rem;
 }
 
@@ -1673,7 +1672,7 @@ img[data-src] {
 display:block;
 }
 .yan{
-color: #C7A87A;
+    color: #fff;
 }
 .mobile_pagination {
     display: flex;

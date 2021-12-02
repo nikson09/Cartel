@@ -55,8 +55,8 @@
                                                         @endif
                                                     </span>
                                                 </div>
-                                                <div class="But_add" style="width: 50%">
-                                                    <div class="d-block">
+                                                <div class="But_add">
+                                                    <div class="d-block" style="width: 50%">
                                                         @if ($product['is_sales'])
                                                             <div class="g-price-old-uah">
                                                                 {{ $product['sum'] }}<span class="g-price-old-uah-sign"> грн</span>

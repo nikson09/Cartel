@@ -1357,9 +1357,6 @@ margin-right: 13px;
 .cartLink  span:hover{
 color:#fff
 }
-.cartLink:hover{
-color:#C7A87A;
-}
 .cartLink:hover::before {
     background-image: url("/images/cart_ic_hover.svg");
 }

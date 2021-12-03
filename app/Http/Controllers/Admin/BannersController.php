@@ -106,7 +106,7 @@ class BannersController extends Controller
         $attribute = Baner::find($id);
 
         $banerRelated = BanerRelation::find($attribute->relation_id);
-        $banerRelated->baner_type = $request->relation_id;
+        $banerRelated->baner_type = $request->relation_id ?? $banerRelated->baner_type;
         $banerRelated->related_id = $request->related_id;
         $banerRelated->update();
 

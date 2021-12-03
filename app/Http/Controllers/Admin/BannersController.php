@@ -91,7 +91,7 @@ class BannersController extends Controller
         $banner = Baner::with('bannerRelation')->find($id);
         $pageSlug = 'banners';
         $bannerTypes = BanerRelation::BANNER_TYPES;
-        $relations = $this->fetchBannerRelationsForController($banner->bannerRelation->baner_type);
+        $relations = !empty($banner->bannerRelation) ? $this->fetchBannerRelationsForController($banner->bannerRelation->baner_type) : [];
 
         return view('admin.pages.banner.edit', [
             'pageSlug' => $pageSlug,

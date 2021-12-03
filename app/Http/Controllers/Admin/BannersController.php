@@ -46,7 +46,8 @@ class BannersController extends Controller
                 return !empty($row->bannerRelation) ? $row->bannerRelation->category ?? '' : '';
             })
             ->addColumn('type', function ($row) {
-                return BanerRelation::BANNER_TYPES[$row->bannerRelation->baner_type];
+
+                return !empty($row->bannerRelation) ? BanerRelation::BANNER_TYPES[$row->bannerRelation->baner_type] : '';
             })
             ->rawColumns(['action', 'image', 'type'])
             ->make(true);

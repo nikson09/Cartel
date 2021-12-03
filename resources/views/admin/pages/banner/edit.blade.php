@@ -27,7 +27,7 @@
                                 <select id="relation_id" required class="custom-select" name="relation_id" onchange="fetchRelations()">
                                     <option value="">Выбрать из списка</option>
                                     @foreach($bannerTypes as $key => $bannerType)
-                                        <option value="{{ $key }}" {{ $banner->bannerRelation->baner_type ==  $key ? 'selected' : ''}}>{{$bannerType}}</option>
+                                        <option value="{{ $key }}" {{ !empty($banner->bannerRelation) ? $banner->bannerRelation->baner_type ==  $key ? 'selected' : '' : ''}}>{{$bannerType}}</option>
                                     @endforeach
                                 </select>
 
@@ -36,7 +36,7 @@
                                     <select id="related_id" required class="custom-select" name="related_id">
                                         @if(count($relations) > 0)
                                             @foreach($relations as $relation)
-                                                <option value="{{ $relation['key'] }}" {{ $banner->bannerRelation->related_id ==  $relation['key'] ? 'selected' : ''}}>{{ $relation['value'] }}</option>
+                                                <option value="{{ $relation['key'] }}" {{  !empty($banner->bannerRelation) ?  $banner->bannerRelation->related_id ==  $relation['key'] ? 'selected' : '' : ''}}>{{ $relation['value'] }}</option>
                                             @endforeach
                                         @else
                                             <option value="0" selected></option>

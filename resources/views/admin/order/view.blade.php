@@ -119,7 +119,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <img id="preview" src="{{  Storage::url('public/products/'. $product['productAttributes']['image']) }}" style="max-width: 200px" class="rounded" alt="...">
+                                            <img id="preview" style="max-width: 2vw;" src="{{  Storage::url('public/products/'. $product['productAttributes']['image']) }}" style="max-width: 200px" class="rounded" alt="...">
                                         </td>
                                         <td class="text-left">
                                             @if (!empty($product))

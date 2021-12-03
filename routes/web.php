@@ -55,6 +55,12 @@ Route::get('/checkout/success/{id}', 'CheckoutController@success')->name('succes
 //global functions
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
+Route::group(['prefix' => 'cabinet', 'middleware' => 'auth'], function () {
+    Route::get('/', 'CabinetController@home')->name('cabinet.home');
+    Route::get('/orders', 'CabinetController@orders')->name('cabinet.orders');
+    Route::post('/changeUser', 'CabinetController@changeUser')->name('cabinet.changeUser');
+});
+
 //admin pages
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::get('/', 'AdminController@home')->name('admin_home');

@@ -112,7 +112,7 @@ class BannersController extends Controller
             $banerRelated->related_id =  !empty($attribute) &&  !empty($attributes['related_id']) ? $attributes['related_id'] : $banerRelated->related_id;
             $banerRelated->update();
         } else {
-            $banerRelated = create([
+            $banerRelated = BanerRelation::create([
                 'baner_type' => $request->relation_id,
                 'related_id' => $request->related_id
             ]);

@@ -40,9 +40,7 @@ color: #7b7b7b;
 }
 
 .navbar-inverse{
-    background: rgba(42, 38, 52, 1);
-
-
+    background: rgb(22, 20, 24);
 }
 
 .contact-info a{
@@ -95,11 +93,11 @@ white-space: normal;
 }
 footer{
     color:#C7A87A;
-    background-color: rgba(42, 38, 52, 1);
+    background-color: rgb(22, 20, 24);
 }
 
 .header_top{
-    background: rgb(22, 20, 24);
+    background: #ffa912;
 
 }
 .header_top a{

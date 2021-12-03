@@ -43,7 +43,7 @@ class BannersController extends Controller
                         </div>';
             })
             ->addColumn('category', function ($row) {
-                return $row->bannerRelation->category;
+                return !emty($row->bannerRelation) ? $row->bannerRelation->category ?? '' : '';
             })
             ->addColumn('type', function ($row) {
                 return BanerRelation::BANNER_TYPES[$row->bannerRelation->baner_type];

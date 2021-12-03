@@ -105,10 +105,18 @@ class BannersController extends Controller
     {
         $attribute = Baner::find($id);
 
+        $attributes = $request->all();
         $banerRelated = BanerRelation::find($attribute->relation_id);
-        $banerRelated->baner_type = isset($request) && !empty($request->all()) &&  !empty($request->relation_id) ? $request->relation_id : $banerRelated->baner_type;
-        $banerRelated->related_id =  isset($request) && !empty($request->all()) &&  !empty($request->related_id) ? $request->related_id : $banerRelated->related_id;
-        $banerRelated->update();
+        if(empty($banerRelated)){
+            $banerRelated->baner_type = !empty($attributes) &&  !empty($attributes['relation_id']) ? $attributes['relation_id'] : $banerRelated->baner_type;
+            $banerRelated->related_id =  !empty($attribute) &&  !empty($attributes['related_id']) ? $attributes['related_id'] : $banerRelated->related_id;
+            $banerRelated->update();
+        } else {
+            $banerRelated = create([
+                'baner_type' => $request->relation_id,
+                'related_id' => $request->related_id
+            ]);
+        }
 
         $attribute->href = $request->href;
         $attribute->order_line = $request->order_line;
@@ -119,7 +127,7 @@ class BannersController extends Controller
             $file->storeAs('public/banners', $filename);
             $attribute->image = $filename;
         }
-        $attribute->relation_id = $request->relation_id;
+        $attribute->relation_id = $banerRelated->id;
         $attribute->update();
 
         return redirect()->route('admin_banners');

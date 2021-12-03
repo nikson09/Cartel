@@ -17256,6 +17256,8 @@ Copyright (c) 2015 Daniel Eden
   width: 100%;
   margin-bottom: 30px;
   box-shadow: 0 1px 20px 0px rgba(0, 0, 0, 0.1);
+    color: white;
+    padding: 1vw;
 }
 
 .card label {

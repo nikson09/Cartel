@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::get('/countries', 'AdminController@countries')->name('admin_countries');
     Route::get('/bar_menus', 'AdminController@barMenus')->name('admin_barMenus');
     Route::get('/banners', 'AdminController@banners')->name('admin_banners');
+    Route::get('/orders', 'AdminController@orders')->name('admin_orders');
 
     Route::namespace('Admin')->prefix('product')->group(function () {
         Route::post('/get', 'ProductController@getProducts')->name('admin_product_get');
@@ -121,8 +122,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
         Route::get('/delete/{id}', 'BarMenuController@delete')->name('admin_barMenus_delete');
     });
 
-    Route::namespace('Admin')->prefix('order')->group(function () {
-        Route::post('/{id}', 'OrderController@viewOrder')->name('admin.view.order');
+    Route::namespace('Admin')->prefix('orders')->group(function () {
+        Route::post('/get', 'OrderController@getOrders')->name('admin.get.order');
+        Route::get('/{id}', 'OrderController@viewOrder')->name('admin.view.order');
+        Route::post('/changeOrderStatus', 'OrderController@changeOrderStatus')->name('admin.changeOrderStatus.order');
     });
 
     Route::namespace('Admin')->prefix('banner')->group(function () {

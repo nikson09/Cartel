@@ -69,4 +69,10 @@ class AdminController extends Controller
         $pageSlug = 'banners';
         return view('admin.pages.banners', ['pageSlug' => $pageSlug]);
     }
+
+    public function orders()
+    {
+        $pageSlug = 'orders';
+        return view('admin.pages.orders', ['pageSlug' => $pageSlug]);
+    }
 }

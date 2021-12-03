@@ -101,6 +101,23 @@
                     </ul>
                 </div>
             </li>
+            <li>
+                <a data-toggle="collapse" href="#orders" aria-expanded="false">
+                    <i class="tim-icons icon-delivery-fast"></i>
+                    <span class="nav-link-text" >Заказы</span>
+                    <b class="caret mt-1"></b>
+                </a>
+                <div class="collapse" id="orders">
+                    <ul class="nav pl-4">
+                        <li @if ($pageSlug == 'orders') class="active " @endif>
+                            <a href="{{ route('admin_orders') }}">
+                                <i class="tim-icons icon-bell-55"></i>
+                                <p>Посмотреть заказы</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 {{--            <li @if ($pageSlug == 'maps') class="active " @endif>--}}
 {{--                <a href="#">--}}
 {{--                    <i class="tim-icons icon-pin"></i>--}}

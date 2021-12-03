@@ -20,4 +20,14 @@ class Order extends Model
         self::DELIVERY => 'Доставка',
         self::FINISHED => 'Закончен',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(OrderUser::class, 'id', 'order_user_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(OrderProduct::class, 'order_id', 'id')->with('productAttributes');
+    }
 }

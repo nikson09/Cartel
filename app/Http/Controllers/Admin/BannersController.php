@@ -107,7 +107,7 @@ class BannersController extends Controller
 
         $attributes = $request->all();
         $banerRelated = BanerRelation::find($attribute->relation_id);
-        if(empty($banerRelated)){
+        if(!empty($banerRelated)){
             $banerRelated->baner_type = !empty($attributes) &&  !empty($attributes['relation_id']) ? $attributes['relation_id'] : $banerRelated->baner_type;
             $banerRelated->related_id =  !empty($attribute) &&  !empty($attributes['related_id']) ? $attributes['related_id'] : $banerRelated->related_id;
             $banerRelated->update();

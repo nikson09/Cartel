@@ -33,43 +33,55 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Имя</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="{{ $user['name'] ?? null }}" required>
                             <div class="invalid-feedback"> Имя обязательна к заполнению. </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Фамилия</label>
-                            <input type="text" class="form-control" id="lastName" required placeholder="" value="">
+                            <input type="text" class="form-control" id="lastName" required placeholder="" value="{{ $user['LastName'] ?? null }}">
                             <div class="invalid-feedback"> Фамилия обязательна к заполнению. </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="phone">Телефон </label>
-                        <input type="text" class="form-control" id="phone" required placeholder="+38(0xx)xxxxxxx">
+                        <input type="text" class="form-control" id="phone" required placeholder="+38(0xx)xxxxxxx" value="{{ $user['phone'] ?? null }}">
                         <div class="invalid-feedback"> Телефон обязателен к заполенению. </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="regions">Область</label>
-                            <input list="region-list" class="form-control d-block w-100" id="regions" required onchange="getCities()">
+                            <input list="region-list" class="form-control d-block w-100" id="regions" required onchange="getCities()" value="{{ $user['region'] ?? null }}">
 
                             <datalist id="region-list">
                                 <option value="">Выберете...</option>
+                                @foreach($regions as $region)
+                                    <option {{ $region == $user['region'] ? 'selected' : '' }} value="{{ $region }}">{{ $region }}</option>
+                                @endforeach
                             </datalist>
                             <div class="invalid-feedback"> Область обязательна к заполенению. </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="cities">Город</label>
-                            <input list="city-list" class="form-control d-block w-100" id="cities" onclick="checkRegion()" required onchange="getMailDepartment()" autocomplete="my-field-name1">
+                            <input list="city-list" class="form-control d-block w-100" id="cities" onclick="checkRegion()" required onchange="getMailDepartment()" autocomplete="my-field-name1" value="{{ $user['cities'] ?? null }}">
 
                             <datalist id="city-list">
                                 <option value="">Выберете...</option>
+                                @if(!empty($user['cities']))
+                                    @foreach($cities as $city)
+                                        <option {{ $city['name'] == $user['cities'] ? 'selected' : '' }} value="{{ $city['name'] }}">{{ $city['name'] }}</option>
+                                    @endforeach
+                                @endif
                             </datalist>
                             <div class="invalid-feedback"> Город обязателен к заполенению. </div>
                         </div>
                         <div class="col-md-12 mb-12">
                             <label for="department">Отделение Новой Почты</label>
                             <select class="custom-select d-block w-100" id="department" onclick="checkCity()" required>
-
+                                @if(!empty($user['department']))
+                                    @foreach($departaments as $department)
+                                        <option {{ $department['name'] == $user['department'] ? 'selected' : '' }} value="{{ $department['name'] }}">{{ $department['name'] }}</option>
+                                    @endforeach
+                                @endif
                             </select>
 
                             <div class="invalid-feedback"> Отделение новой почты обязателен к заполенению. </div>
@@ -93,7 +105,6 @@
 <script>
     $(function(){
         getRegions()
-        getCities()
         document.addEventListener('reloadBasket', function (e) { reloadCheckoutBasket() }, false);
     });
 

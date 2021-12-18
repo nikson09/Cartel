@@ -59,6 +59,8 @@ Route::group(['prefix' => 'cabinet', 'middleware' => 'auth'], function () {
     Route::get('/', 'CabinetController@home')->name('cabinet.home');
     Route::get('/orders', 'CabinetController@orders')->name('cabinet.orders');
     Route::post('/changeUser', 'CabinetController@changeUser')->name('cabinet.changeUser');
+    Route::post('/orders/get', 'CabinetController@getOrders')->name('cabinet.getOrders');
+    Route::post('/fetchBasketProductsForOrders/{id}', 'CabinetController@fetchBasketProductsForOrders')->name('cabinet.fetchBasketProductsForOrders');
 });
 
 //admin pages

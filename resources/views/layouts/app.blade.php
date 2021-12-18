@@ -10,7 +10,6 @@
     <title>{{ config('app.name', 'Cartel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -24,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('css/awesomplete.css') }}">
     <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="all">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css"/>
     @yield('style')
 </head>
 <body>
@@ -375,6 +375,10 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
+
 <script>
     $(window).on('load', function() {
         setTimeout(function () {
@@ -411,6 +415,7 @@
 <script src="{{ asset('js/jquery.cycle2.min.js')}}"></script>
 <script src="{{ asset('js/jquery.cycle2.carousel.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
 
 <script type="text/javascript">
     $(function(){
@@ -654,6 +659,35 @@
                 '                                    <a href="javascript:void(0);" onclick="removeOneProductFromBasket('+ value.id +')" class="btn btn-danger btn-sm button-circle">\n' +
                 '                                        <i class="fa fa-times"></i>\n' +
                 '                                    </a>\n' +
+                '                                </td>\n' +
+                '                            </tr>';
+        });
+        return html;
+    }
+
+    function drawPageOrder(products)
+    {
+        let html = '';
+        products.forEach((value, index) => {
+            html += '                            <tr>\n' +
+                '                                <td>\n' +
+                '                                    <img style="width: 12vw;height: auto" src="/storage/products/'+ value.image +'" class="img-fluid img-thumbnail" alt="Sheep">\n' +
+                '                                </td>\n' +
+                '                                <td>'+ value.name +'</td>\n' +
+                '                                <td style="white-space: nowrap;" class="text-primary">'+ value.sum +' грн</td>\n' +
+                '                                <td class="qty">' +
+                '<div class="counter-inner counter-inner--cart clr rel" style="background-color: #e7e7e7;\n' +
+                '    border-radius: 0.5vw;\n' +
+                '    height: auto !important;\n' +
+                '    padding: 0vw !important;\n' +
+                '    display: inline-block;\n' +
+                '    vertical-align: middle;\n' +
+                '    margin: 0 0.5vw 0 0;\n' +
+                '    width: auto !important;">\n' +
+                '\t\t\t\t\t\t\t\t\t\t\t\t\t<input type="text" maxlength="7" disabled onkeyup="changeQuantity('+ value.id +', this);" value="'+value.quantity+'" class="input--count countInput clearCError">\n' +
+                '\t\t\t\t\t\t\t\t\t\t\t\t</div></td>\n' +
+                '                                <td style="white-space: nowrap;" class="text-primary">'+ (parseInt(value.sum) * parseInt(value.quantity)) +' грн</td>\n' +
+                '                                <td>\n' +
                 '                                </td>\n' +
                 '                            </tr>';
         });

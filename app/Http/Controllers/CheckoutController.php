@@ -51,12 +51,25 @@ class CheckoutController extends Controller
             'status' => true
         ])->whereNull('parent')->get();
 
+        $user = auth()->user();
+
+        $cities = '';
+        $departaments = '';
+        $regions = $this->getRegionsCheckout();
+        if(!empty($user)){
+            $cities = !empty($user->region) ? $this->getRegionCitiesCheckout($user->region) : [];
+            $departaments = !empty($user->region) && !empty($user->cities) ? $this->getPostalOfficesCheckout($user->cities, $user->region) : [];
+        }
 
         return view('checkout', [
             'categories' => $categories,
             'products' => $products,
             'sum' => $sum,
-            'quantity' => $quantity
+            'quantity' => $quantity,
+            'user' => $user,
+            'cities' => $cities,
+            'departaments' => $departaments,
+            'regions' => $regions
         ]);
     }
 
@@ -149,13 +162,15 @@ class CheckoutController extends Controller
                 $products[] = $product;
             }
 
+            $user = auth()->user();
             $orderUser = OrderUser::create([
                 'phone' => $form['phone'],
                 'name' => $form['firstName'],
                 'LastName' => $form['lastName'],
                 'region' => $form['regions'],
                 'cities' => $form['cities'],
-                'department' => $form['department']
+                'department' => $form['department'],
+                'user_id' => !empty($user) ? $user->id : null
             ]);
 
             $order = Order::create([
@@ -232,5 +247,38 @@ class CheckoutController extends Controller
         return view('success', [
             'categories' => $categories
         ]);
+    }
+
+    public function getRegionCitiesCheckout($region)
+    {
+        $cities = [];
+        $isRegionExist = $this->checkRegion($region);
+
+        if($isRegionExist){
+            $cities = $this->novaPoshtaService
+                ->getRegionCities($region);
+        }
+
+        return $cities;
+    }
+
+    public function getPostalOfficesCheckout($city, $region)
+    {
+        $postalOffices = [];
+        $isCityExist = $this->checkCity($region, $city);
+
+        if($isCityExist){
+            $postalOffices = $this->novaPoshtaService
+                ->getPostalOffices($city, $region);
+        }
+
+        return $postalOffices;
+    }
+
+    public function getRegionsCheckout()
+    {
+        $regions = $this->novaPoshtaService->getRegions();
+
+        return $regions;
     }
 }

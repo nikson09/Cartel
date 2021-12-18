@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\OrderUser;
+use App\Product;
 use App\Services\NovaPoshtaService;
 use App\User;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class CabinetController extends Controller
 {
@@ -117,6 +121,76 @@ class CabinetController extends Controller
 
         return response()->json([
             'result' => true
+        ], 200);
+    }
+
+    public function getOrders(Request $request)
+    {
+        $userId = auth()->user()->id;
+
+        $orders = OrderUser::query()->with(['order'])->where('user_id', $userId);
+        return Datatables::of($orders)
+            ->addColumn('advanced', function ($row) {
+                return '<a
+                            style="margin-right:5px"
+                            class="btn btn-outline-dark fa fa-eye"
+                            href="javascript:void(0);"
+                            onclick="getOrderDetail('. $row->order->id .')">
+                        </a>';
+            })
+            ->addColumn('id', function ($row) {
+                return $row->order->id;
+            })
+            ->addColumn('sum', function ($row) {
+                return $row->order->sum . ' грн';
+            })
+            ->addColumn('quantity', function ($row) {
+                $quantity = 0;
+                foreach($row->order->products as $product){
+                    $quantity += $product->quantity;
+                }
+                return $quantity;
+            })
+            ->addColumn('status', function ($row) {
+                return Order::STASUSES[$row->order->user_order_status];
+            })
+            ->rawColumns(['id', 'sum', 'quantity', 'advanced', 'status'])
+            ->make(true);
+    }
+
+    public function fetchBasketProductsForOrders($id)
+    {
+        $user = auth()->user();
+
+        if(empty($user)){
+            abort(404);
+        }
+
+        $order = Order::where('id', $id)
+            ->with('products')
+            ->whereHas('user', function ($query) use ($user) {
+               return $query->where('user_id', '=', $user->id);
+           })->first();
+
+        $sum = 0;
+        $products = [];
+        $quantity = 0;
+
+        if(!empty($order->products)){
+            foreach($order->products as $productBasket){
+                $product = Product::find($productBasket->product_id);
+                $sum += ($productBasket->quantity * $product->sum);
+                $product['quantity'] = $productBasket->quantity;
+                $quantity += $productBasket->quantity;
+                $products[] = $product;
+            }
+        }
+
+        return response()->json([
+            'result' => true,
+            'products' => $products,
+            'sum' => $sum,
+            'quantity' => $quantity
         ], 200);
     }
 }

@@ -55,7 +55,7 @@
                             <datalist id="region-list">
                                 <option value="">Выберете...</option>
                                 @foreach($regions as $region)
-                                    <option {{ $region == $user['region'] ? 'selected' : '' }} value="{{ $region }}">{{ $region }}</option>
+                                    <option {{ !empty($user) && $region == $user['region'] ? 'selected' : '' }} value="{{ $region }}">{{ $region }}</option>
                                 @endforeach
                             </datalist>
                             <div class="invalid-feedback"> Область обязательна к заполенению. </div>
@@ -66,9 +66,9 @@
 
                             <datalist id="city-list">
                                 <option value="">Выберете...</option>
-                                @if(!empty($user['cities']))
+                                @if(!empty($user) && !empty($user['cities']))
                                     @foreach($cities as $city)
-                                        <option {{ $city['name'] == $user['cities'] ? 'selected' : '' }} value="{{ $city['name'] }}">{{ $city['name'] }}</option>
+                                        <option {{  !empty($user) &&  $city['name'] == $user['cities'] ? 'selected' : '' }} value="{{ $city['name'] }}">{{ $city['name'] }}</option>
                                     @endforeach
                                 @endif
                             </datalist>
@@ -77,9 +77,9 @@
                         <div class="col-md-12 mb-12">
                             <label for="department">Отделение Новой Почты</label>
                             <select class="custom-select d-block w-100" id="department" onclick="checkCity()" required>
-                                @if(!empty($user['department']))
+                                @if(!empty($user) && !empty($user['department']))
                                     @foreach($departaments as $department)
-                                        <option {{ $department['name'] == $user['department'] ? 'selected' : '' }} value="{{ $department['name'] }}">{{ $department['name'] }}</option>
+                                        <option {{ !empty($user) && $department['name'] == $user['department'] ? 'selected' : '' }} value="{{ $department['name'] }}">{{ $department['name'] }}</option>
                                     @endforeach
                                 @endif
                             </select>

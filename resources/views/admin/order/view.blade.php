@@ -123,7 +123,7 @@
                                         </td>
                                         <td class="text-left">
                                             @if (!empty($product))
-                                                <a href="">{{ $product['productAttributes']['name'] }}</a>
+                                                <a href="">{{ $product['productAttributes']['name'] }} {{ $product['isPreOrder'] ? '(По Предзаказу)' : ''}}</a>
                                             @else
                                                 Товар был удален
                                             @endif

@@ -411,7 +411,7 @@
         };
     });
 </script>
-<script src="//code.jivosite.com/widget/HnMGnSsPrd" async></script>
+<script src="//code-eu1.jivosite.com/widget/b6XwypSHio" async></script>
 <script src="{{ asset('js/jquery.cycle2.min.js')}}"></script>
 <script src="{{ asset('js/jquery.cycle2.carousel.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -511,12 +511,14 @@
             success: function(data){
                 $("#loader").hide();
                 let products = data.products;
+                let notRelatedProducts = data.notRelatedProducts;
                 if(data.sum <= 0){
                     $('#basket-modal-body').hide();
                     $('#checkout_button').hide();
                     $('#cart-is-empty').show();
                 } else {
                     let html = drawPage(products);
+                    html = html + drawPage(notRelatedProducts);
                     $('#cart-body').html(html);
                     $('#total_cart_sum').text(data.sum);
 
@@ -548,12 +550,14 @@
             success: function (data) {
                 $("#loader").hide();
                 let products = data.products;
+                let notRelatedProducts = data.notRelatedProducts;
                 if(data.sum <= 0){
                     $('#basket-modal-body').hide();
                     $('#checkout_button').hide();
                     $('#cart-is-empty').show();
                 } else {
                     let html = drawPage(products);
+                    html = html + drawPage(notRelatedProducts);
                     $('#cart-body').html(html);
                     $('#total_cart_sum').text(data.sum);
                     $('#basket-modal-body').show();
@@ -642,11 +646,13 @@
     {
         let html = '';
         products.forEach((value, index) => {
-            html += '                            <tr>\n' +
+            let isProductExist = value.isRelated ? "" : "productHasRunOut";
+            let productJustForPreOrder = value.isRelated ? "" : "</br>(По предзаказу)";
+            html += '                            <tr class="'+ isProductExist +'">\n' +
                 '                                <td>\n' +
                 '                                    <img style="width: 12vw;height: auto" src="/storage/products/'+ value.image +'" class="img-fluid img-thumbnail" alt="Sheep">\n' +
                 '                                </td>\n' +
-                '                                <td>'+ value.name +'</td>\n' +
+                '                                <td class="text-center">'+ value.name + productJustForPreOrder +'</td>\n' +
                 '                                <td style="white-space: nowrap;" class="text-primary">'+ value.sum +' грн</td>\n' +
                 '                                <td class="qty">' +
                 '<div class="counter-inner counter-inner--cart clr rel">\n' +
@@ -656,7 +662,7 @@
                 '\t\t\t\t\t\t\t\t\t\t\t\t</div></td>\n' +
                 '                                <td style="white-space: nowrap;" class="text-primary">'+ (parseInt(value.sum) * parseInt(value.quantity)) +' грн</td>\n' +
                 '                                <td>\n' +
-                '                                    <a href="javascript:void(0);" onclick="removeOneProductFromBasket('+ value.id +')" class="btn btn-danger btn-sm button-circle">\n' +
+                '                                    <a href="javascript:void(0);" onclick="removeOneProductFromBasket('+ value.id +', '+ value.isRelated +')" class="btn btn-danger btn-sm button-circle">\n' +
                 '                                        <i class="fa fa-times"></i>\n' +
                 '                                    </a>\n' +
                 '                                </td>\n' +
@@ -669,11 +675,14 @@
     {
         let html = '';
         products.forEach((value, index) => {
-            html += '                            <tr>\n' +
+            let isProductExist = !value.isPreOrder ? "" : "productHasRunOut";
+            let productJustForPreOrder = !value.isPreOrder ? "" : "</br>(По предзаказу)";
+
+            html += '                            <tr class="'+ isProductExist +'">\n' +
                 '                                <td>\n' +
                 '                                    <img style="width: 12vw;height: auto" src="/storage/products/'+ value.image +'" class="img-fluid img-thumbnail" alt="Sheep">\n' +
                 '                                </td>\n' +
-                '                                <td>'+ value.name +'</td>\n' +
+                '                                <td>'+ value.name + productJustForPreOrder +'</td>\n' +
                 '                                <td style="white-space: nowrap;" class="text-primary">'+ value.sum +' грн</td>\n' +
                 '                                <td class="qty">' +
                 '<div class="counter-inner counter-inner--cart clr rel" style="background-color: #e7e7e7;\n' +
@@ -764,7 +773,7 @@
         });
     }
 
-    function removeOneProductFromBasket(id)
+    function removeOneProductFromBasket(id, isRelated)
     {
         let productId = id;
         this.showLoading();
@@ -778,7 +787,8 @@
             url: '/removeOneProductFromBasket',
             data: {
                 productId: productId,
-                removeAll: true
+                removeAll: true,
+                isRelated: isRelated
             },
             method: 'post',
             success: function(data){

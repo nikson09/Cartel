@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12">
-            <div class="product-details"><!--product-details-->
+            <div class="product-details {{ $product['quantity'] > 0 ? '' : 'productHasRunOut' }}"><!--product-details-->
                 <div class="row">
                     <div class="col-5">
                         <div class="view-product">
@@ -31,6 +31,11 @@
                         <div class="product-information"><!--/product-information-->
                             @if ($product['is_new'])
                                 <img src="/images/new.jpg" class="newarrival" alt=""/>
+                            @endif
+                            @if ($product['quantity'] > 0)
+                                <img src="/images/templates/in_stock.png" class="quantity_product" alt="" />
+                            @else
+                                <img src="/images/templates/under_the_order.png" class="quantity_product" alt="" />
                             @endif
                             <h2>{{$product['name']}}</h2>
 
@@ -68,7 +73,7 @@
                                             <button class="up btn btn-default checkout" onclick="plusProduct()">
                                                     <i class="fa fa-plus"></i>
                                             </button>
-                                            <a href="javascript:void(0);" class="btn btn-default add-to-cart" id="addToBasketButton" data-id="{{$product['id']}}" onclick="addToBasket()"><i class="fa fa-shopping-cart"></i>В корзину</a>
+                                            <a href="javascript:void(0);" class="btn btn-default add-to-cart" id="addToBasketButton" data-id="{{$product['id']}}" onclick="addToBasket()"><i class="fa fa-shopping-cart"></i>{{ $product['quantity'] > 0 ? 'В корзину' : 'Предзаказ' }}</a>
                                         </span>
                                     </div>
                                 </span>
@@ -250,6 +255,13 @@
         text-align: center;
         font-family: Trebuchet MS Bold, Arial, sans-serif;
         left: 7vw;
+    }
+    .quantity_product {
+        width: 4vw;
+        left: 0;
+        top: 3vw;
+        z-index: 100;
+        position: inherit !important;
     }
 </style>
 @endsection

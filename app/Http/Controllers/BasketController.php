@@ -56,15 +56,31 @@ class BasketController extends Controller
         $basket = Session::get('basket_products');
         $sum = 0;
         $products = [];
+        $notRelatedProducts = [];
         $quantity = 0;
 
         if(!empty($basket)){
             foreach($basket as $productBasket){
-                $product = Product::find($productBasket['id']);
-                $sum += ($productBasket['quantity'] * $product->sum);
+                $product = Product::find($productBasket['id'])->toArray();
+                $sum += ($productBasket['quantity'] * $product['sum']);
+                $product['quantityProduct'] =  $product['quantity'];
                 $product['quantity'] = $productBasket['quantity'];
                 $quantity += $productBasket['quantity'];
-                $products[] = $product;
+                if($productBasket['quantity'] > $product['quantityProduct']){
+                    $notRelatedProductsCount = $productBasket['quantity'] - $product['quantityProduct'];
+                    $notRelatedProduct = $product;
+
+                    $notRelatedProduct['quantity'] = $notRelatedProductsCount;
+                    $notRelatedProduct['isRelated'] = false;
+
+                    $notRelatedProducts[] = $notRelatedProduct;
+                    $product['quantity'] = $productBasket['quantity'] - $notRelatedProductsCount;
+                }
+                $product['isRelated'] = true;
+
+                if($product['quantity'] > 0){
+                    $products[] = $product;
+                }
             }
         }
 
@@ -72,7 +88,8 @@ class BasketController extends Controller
             'result' => true,
             'products' => $products,
             'sum' => $sum,
-            'quantity' => $quantity
+            'quantity' => $quantity,
+            'notRelatedProducts' => $notRelatedProducts
         ], 200);
     }
 
@@ -103,6 +120,7 @@ class BasketController extends Controller
         $productId = $request->productId;
         $product = Product::findOrFail($productId);
         $removeAll = $request->removeAll ?? false;
+        $isRelated = $request->isRelated ?? true;
 
         $basket = Session::get('basket_products');
 
@@ -110,7 +128,12 @@ class BasketController extends Controller
             if($basket[$product->id]['quantity'] !== 1 && !$removeAll){
                 $basket[$product->id]['quantity'] -= 1;
             } else {
-                unset($basket[$product->id]);
+                if((boolean)json_decode(strtolower($isRelated))){
+                    unset($basket[$product->id]);
+                } else {
+                    $notRelatedProductCount = $basket[$product->id]['quantity'] - $product->quantity;
+                    $basket[$product->id]['quantity'] -= $notRelatedProductCount;
+                }
             }
         }
 

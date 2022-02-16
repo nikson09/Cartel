@@ -20,6 +20,17 @@
                                 <span class="text-muted" style="white-space: nowrap;">{{ $product['quantity'] * $product['sum'] }} грн</span>
                             </li>
                         @endforeach
+                        @foreach($notRelatedProducts as $product)
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">{{ $product['name'] }}
+                                        <br>(По предзаказу)
+                                    </h6>
+                                    <small>- x{{$product['quantity']}}</small>
+                                </div>
+                                <span class="text-muted" style="white-space: nowrap;">{{ $product['quantity'] * $product['sum'] }} грн</span>
+                            </li>
+                        @endforeach
                     </div>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Всего</span>
@@ -265,6 +276,7 @@
             method: 'get',
             success: function (data) {
                 let products = data.products;
+                let notRelatedProducts = data.notRelatedProducts;
                 let sum = data.sum;
                 let quantity = data.quantity;
                 if(sum <= 0){
@@ -275,6 +287,15 @@
                         html += '                        <li class="list-group-item d-flex justify-content-between lh-condensed">\n' +
                             '                            <div>\n' +
                             '                                <h6 class="my-0"> '+ value.name +' </h6>\n' +
+                            '                                <small>- x'+ value.quantity +'</small>\n' +
+                            '                            </div>\n' +
+                            '                            <span class="text-muted" style="white-space: nowrap;">'+ value.quantity * value.sum +' грн</span>\n' +
+                            '                        </li>';
+                    });
+                    notRelatedProducts.forEach((value, index) => {
+                        html += '                        <li class="list-group-item d-flex justify-content-between lh-condensed">\n' +
+                            '                            <div>\n' +
+                            '                                <h6 class="my-0"> '+ value.name +' <br>(По Предзаказу)</h6>\n' +
                             '                                <small>- x'+ value.quantity +'</small>\n' +
                             '                            </div>\n' +
                             '                            <span class="text-muted" style="white-space: nowrap;">'+ value.quantity * value.sum +' грн</span>\n' +

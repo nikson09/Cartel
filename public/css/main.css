@@ -1532,6 +1532,7 @@ overflow: hidden;
     /* margin-left: 75px; */
     position: absolute;
     left: 4.6vw;
+    z-index: 100;
 }
 .g-price-old-uah_s {
     font-size: 20px;
@@ -1756,6 +1757,7 @@ float:left;
     left: 0;
     top: 3vw;
     position: absolute;
+    z-index: 100;
 }
 
 .dataTables_wrapper .dataTables_info {
@@ -1826,4 +1828,10 @@ span.down.down--float {
 span.up.up--float {
     float: right;
     width: 2vw;
+}
+
+.productHasRunOut
+{
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
 }

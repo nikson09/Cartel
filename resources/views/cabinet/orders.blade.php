@@ -133,12 +133,14 @@
                 success: function(data){
                     $("#loader").hide();
                     let products = data.products;
+                    let notRelatedProducts = data.notRelatedProducts;
                     if(data.sum <= 0){
                         $('#basket-modal-body').hide();
                         $('#checkout_button').hide();
                         $('#cart-is-empty').show();
                     } else {
                         let html = drawPageOrder(products);
+                        html = html + drawPageOrder(notRelatedProducts);
                         $('#cart-body').html(html);
                         $('#total_cart_sum').text(data.sum);
 

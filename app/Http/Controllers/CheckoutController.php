@@ -34,16 +34,32 @@ class CheckoutController extends Controller
         $sum = 0;
         $products = [];
         $quantity = 0;
+        $notRelatedProducts = [];
 
         if(empty($basket)){
             return redirect(route('home'));
         } else {
             foreach($basket as $productBasket){
-                $product = Product::find($productBasket['id']);
-                $sum += ($productBasket['quantity'] * $product->sum);
+                $product = Product::find($productBasket['id'])->toArray();
+                $sum += ($productBasket['quantity'] * $product['sum']);
+                $product['quantityProduct'] =  $product['quantity'];
                 $product['quantity'] = $productBasket['quantity'];
                 $quantity += $productBasket['quantity'];
-                $products[] = $product;
+                if($productBasket['quantity'] > $product['quantityProduct']){
+                    $notRelatedProductsCount = $productBasket['quantity'] - $product['quantityProduct'];
+                    $notRelatedProduct = $product;
+
+                    $notRelatedProduct['quantity'] = $notRelatedProductsCount;
+                    $notRelatedProduct['isRelated'] = false;
+
+                    $notRelatedProducts[] = $notRelatedProduct;
+                    $product['quantity'] = $productBasket['quantity'] - $notRelatedProductsCount;
+                }
+                $product['isRelated'] = true;
+
+                if($product['quantity'] > 0){
+                    $products[] = $product;
+                }
             }
         }
 
@@ -69,7 +85,8 @@ class CheckoutController extends Controller
             'user' => $user,
             'cities' => $cities,
             'departaments' => $departaments,
-            'regions' => $regions
+            'regions' => $regions,
+            'notRelatedProducts' => $notRelatedProducts
         ]);
     }
 
@@ -153,13 +170,30 @@ class CheckoutController extends Controller
         $redirect = route('home');
 
         $basket = Session::get('basket_products');
+        $notRelatedProducts = [];
+        $products = [];
 
         if(!empty($basket)){
             foreach($basket as $productBasket){
-                $product = Product::find($productBasket['id']);
-                $total += ($productBasket['quantity'] * $product->sum);
+                $product = Product::find($productBasket['id'])->toArray();
+                $total += ($productBasket['quantity'] * $product['sum']);
+                $product['quantityProduct'] =  $product['quantity'];
                 $product['quantity'] = $productBasket['quantity'];
-                $products[] = $product;
+                if($productBasket['quantity'] > $product['quantityProduct']){
+                    $notRelatedProductsCount = $productBasket['quantity'] - $product['quantityProduct'];
+                    $notRelatedProduct = $product;
+
+                    $notRelatedProduct['quantity'] = $notRelatedProductsCount;
+                    $notRelatedProduct['isRelated'] = false;
+
+                    $notRelatedProducts[] = $notRelatedProduct;
+                    $product['quantity'] = $productBasket['quantity'] - $notRelatedProductsCount;
+                }
+                $product['isRelated'] = true;
+
+                if($product['quantity'] > 0){
+                    $products[] = $product;
+                }
             }
 
             $user = auth()->user();
@@ -180,6 +214,7 @@ class CheckoutController extends Controller
                 'sum' => $total
             ]);
 
+
             foreach($products as $product){
                 OrderProduct::create([
                     'order_id' => $order->id,
@@ -187,7 +222,23 @@ class CheckoutController extends Controller
                     'quantity' => $product['quantity'],
                     'sum' => $product['sum'],
                     'discount_percent' => $product['discount_percent'],
-                    'is_sales' => $product['is_sales']
+                    'is_sales' => $product['is_sales'],
+                ]);
+
+                $product = Product::find($product['id']);
+                $product->quantity -= $product['quantity'];
+                $product->update();
+            }
+
+            foreach($notRelatedProducts as $product){
+                OrderProduct::create([
+                    'order_id' => $order->id,
+                    'product_id' => $product['id'],
+                    'quantity' => $product['quantity'],
+                    'sum' => $product['sum'],
+                    'discount_percent' => $product['discount_percent'],
+                    'is_sales' => $product['is_sales'],
+                    'isPreOrder' => true
                 ]);
             }
 

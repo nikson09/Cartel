@@ -13,7 +13,7 @@
                             <div class="col-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
-                                        <div class="productinfo text-center">
+                                        <div class="productinfo text-center {{ $product['quantity'] > 0 ? '' : 'productHasRunOut' }}"">
                                             @if ($product['is_sales'])
                                                 <span class="discount_date">
                                                     до {{ $product['discount_date'] }}</span>
@@ -65,7 +65,7 @@
                                                         <h5 class="pric">{{$product['sum']}} грн</h5>
                                                     @endif
                                                 </div>
-                                                <a href="javascript:void(0);" style="margin-top: 0.5vw;" class="btn btn-default add-to-cart" onclick="addToBasketOneProduct({{ $product['id'] }})" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>В корзину</a>
+                                                <a href="javascript:void(0);" style="margin-top: 0.5vw;" class="btn btn-default add-to-cart" onclick="addToBasketOneProduct({{ $product['id'] }})" data-id="{{ $product['id'] }}"><i style="margin-right: 0.1vw;" class="fa fa-shopping-cart"></i>{{ $product['quantity'] > 0 ? 'В корзину' : 'Предзаказ' }}</a>
                                             </div>
                                         </div>
                                     </div>

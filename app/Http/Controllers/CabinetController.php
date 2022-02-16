@@ -174,6 +174,7 @@ class CabinetController extends Controller
 
         $sum = 0;
         $products = [];
+        $notRelatedProducts = [];
         $quantity = 0;
 
         if(!empty($order->products)){
@@ -182,7 +183,12 @@ class CabinetController extends Controller
                 $sum += ($productBasket->quantity * $product->sum);
                 $product['quantity'] = $productBasket->quantity;
                 $quantity += $productBasket->quantity;
-                $products[] = $product;
+                $product['isPreOrder'] = $productBasket->isPreOrder;
+                if($productBasket->isPreOrder){
+                    $notRelatedProducts[] = $product;
+                } else {
+                    $products[] = $product;
+                }
             }
         }
 
@@ -190,7 +196,8 @@ class CabinetController extends Controller
             'result' => true,
             'products' => $products,
             'sum' => $sum,
-            'quantity' => $quantity
+            'quantity' => $quantity,
+            'notRelatedProducts' => $notRelatedProducts
         ], 200);
     }
 }

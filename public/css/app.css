@@ -4513,8 +4513,8 @@ input[type=button].btn-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
 }
 
 .navbar .container,

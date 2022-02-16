@@ -34,6 +34,12 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('/{id}', 'ProductController@productView')->name('product.view');
 });
 
+//opt view
+Route::group(['prefix' => 'opt'], function () {
+    Route::get('/', 'OptController@index')->name('product.index');
+    Route::get('/getProducts', 'OptController@getProducts')->name('product.getProducts');
+});
+
 //basket functions
 Route::post('/addProductToBasket', 'BasketController@addProductToBasket')->name('addProductToBasket');
 Route::get('/getBasket', 'BasketController@getBasket')->name('getBasket');

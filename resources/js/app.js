@@ -7,9 +7,19 @@
 require('./bootstrap');
 require('easy-autocomplete');
 
-const axios = require('axios').default;
+import VueSweetalert2 from 'vue-sweetalert2';
+
+// If you don't need the styles, do not connect
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+
+
 
 window.Vue = require('vue');
+
+const axios = require('axios').default;
+
+Vue.use(VueSweetalert2);
 
 /**
  * The following block of code may be used to automatically register your

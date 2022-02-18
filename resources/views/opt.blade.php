@@ -1,7 +1,7 @@
 @extends('layouts.app-opt')
 
 @section('content')
-    <opt-table/>
+    <opt-table :user="{{ $user }}" :products="{{ $products }}"/>
 @endsection
 
 @section('scripts')

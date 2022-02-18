@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li @if ($pageSlug == 'users') class="active " @endif>
-                            <a href="#">
+                            <a href="{{ route('admin_users') }}">
                                 <i class="tim-icons icon-bullet-list-67 disabled"></i>
                                 <p>Пользователи</p>
                             </a>

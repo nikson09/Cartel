@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/getProduct', 'ProductController@getProduct')->name('get_product');
 Route::post('/addDiscountPercent', 'Admin\ProductController@addDiscountPercent')->name('add_discount_percent');
 Route::post('/deleteDiscountPercent', 'Admin\ProductController@deleteDiscountPercent')->name('delete_discount_percent');
+Route::post('/getUser', 'Admin\UserController@getUser')->name('get_user');
+Route::post('/changeUserStatus', 'Admin\UserController@changeUserStatus')->name('change_user_status');

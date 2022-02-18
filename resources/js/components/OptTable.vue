@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 <template>
     <div>
         <header class="page-header page-header-columns">
@@ -18,7 +20,7 @@
                         <ul class="customer-data">
                             <li class="customer-name">
                                 <span>Покупатель:</span>
-                                Персональный Пользователь
+                                {{ user.name + ' ' + user.LastName }}
                             </li>
                             <li class="customer-name" style="display: none;">
                                 <span>Ваш заказ</span></li>
@@ -31,7 +33,7 @@
                                 <span class="customer-currency"> грн</span>
                             </div>
                             <div class="customer-checkout" :class="totalSum > 0 ? '' : 'button-disabled'">
-                                <a href="confirm" class="customer-button">Оформить
+                                <a @click="confirmOrder" href="javascript:void(0);" class="customer-button">Оформить
                                     заказ</a>
                             </div>
                         </div>
@@ -99,7 +101,7 @@
             VueBootstrap4Table,
             axios
         },
-        props: ['products'],
+        props: ['products', 'user'],
         data: function() {
             return {
                 rows: [
@@ -216,24 +218,87 @@
                 });
             },
             getProducts(){
-                axios.get(
-                    '/opt/getProducts'
-                ).then(response => {
-                    let products = response.data.products;
-
-                    products.forEach((item, index) => {
-                        this.rows.push({
-                            'id': item.id,
-                            'name': item.name,
-                            'image': item.image,
-                            'max_count': item.quantity,
-                            'price': item.sum,
-                            'sum': 0,
-                            'count': 0
-                        });
+                this.products.forEach((item, index) => {
+                    this.rows.push({
+                        'id': item.id,
+                        'name': item.name,
+                        'image': item.image,
+                        'max_count': item.quantity,
+                        'price': item.sum,
+                        'sum': 0,
+                        'count': 0
                     });
                 });
-            }
+                // axios.get(
+                //     '/opt/getProducts'
+                // ).then(response => {
+                //     let products = response.data.products;
+                //
+                //     products.forEach((item, index) => {
+                //         this.rows.push({
+                //             'id': item.id,
+                //             'name': item.name,
+                //             'image': item.image,
+                //             'max_count': item.quantity,
+                //             'price': item.sum,
+                //             'sum': 0,
+                //             'count': 0
+                //         });
+                //     });
+                // });
+            },
+            confirmOrder(){
+                this.$swal.fire({
+                    title: 'Обрабатывается',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    showConfirmButton: false
+                });
+                this.$swal.showLoading();
+
+                axios.post('/opt/checkout', {
+                    'products': this.rows.filter(item => parseInt(item.count) > 0)
+                }).then(response => {
+                    if(response.data.success){
+                        axios.get(
+                            '/opt/getProducts'
+                        ).then(response => {
+                            let products = response.data.products;
+                            this.rows = [];
+                            products.forEach((item, index) => {
+                                this.rows.push({
+                                    'id': item.id,
+                                    'name': item.name,
+                                    'image': item.image,
+                                    'max_count': item.quantity,
+                                    'price': item.sum,
+                                    'sum': 0,
+                                    'count': 0
+                                });
+                            });
+                            this.$swal.hideLoading();
+                            this.$swal.close();
+                        });
+                    } else {
+                        let errors = '';
+                        response.data.errors.forEach((item , index) => {
+                            if(index != 0){
+                                errors = errors + '; '+ item;
+                            } else {
+                                errors += item;
+                            }
+                        });
+                        this.$swal.fire({
+                            title: 'Ошибка!',
+                            text: errors,
+                            icon: 'error',
+                            confirmButtonText: 'Ок'
+                        })
+                        this.$swal.hideLoading();
+                        // this.$swal.close();
+                    }
+                });
+            },
         },
         mounted() {
             $('.input-group.col-sm-2').remove()

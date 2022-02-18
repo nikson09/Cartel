@@ -35,9 +35,10 @@ Route::group(['prefix' => 'product'], function () {
 });
 
 //opt view
-Route::group(['prefix' => 'opt'], function () {
+Route::group(['prefix' => 'opt', 'middleware' => 'isWholesaler'], function () {
     Route::get('/', 'OptController@index')->name('product.index');
     Route::get('/getProducts', 'OptController@getProducts')->name('product.getProducts');
+    Route::post('/checkout', 'OptController@checkout')->name('product.checkout');
 });
 
 //basket functions
@@ -81,6 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::get('/bar_menus', 'AdminController@barMenus')->name('admin_barMenus');
     Route::get('/banners', 'AdminController@banners')->name('admin_banners');
     Route::get('/orders', 'AdminController@orders')->name('admin_orders');
+    Route::get('/users', 'AdminController@users')->name('admin_users');
 
     Route::namespace('Admin')->prefix('product')->group(function () {
         Route::post('/get', 'ProductController@getProducts')->name('admin_product_get');
@@ -140,6 +142,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
         Route::post('/get', 'OrderController@getOrders')->name('admin.get.order');
         Route::get('/{id}', 'OrderController@viewOrder')->name('admin.view.order');
         Route::post('/changeOrderStatus', 'OrderController@changeOrderStatus')->name('admin.changeOrderStatus.order');
+    });
+
+    Route::namespace('Admin')->prefix('users')->group(function () {
+        Route::post('/get', 'UserController@getUsers')->name('admin.get.users');
+        Route::post('/changeUserStatus', 'UserController@changeUserStatus')->name('admin.changeUserStatus.user');
     });
 
     Route::namespace('Admin')->prefix('banner')->group(function () {

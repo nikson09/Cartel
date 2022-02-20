@@ -165,6 +165,10 @@
     </div>
 </div>
 @endsection
+@section('content-mobile')
+    <home :products="{{ $recommendedProducts ?? [] }}"></home>
+
+@endsection
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function(){

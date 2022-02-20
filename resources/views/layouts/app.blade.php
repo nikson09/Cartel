@@ -24,121 +24,17 @@
     <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="all">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css"/>
+    <style>
+        .mobile-body{
+            min-height: 50vw;
+        }
+
+    </style>
     @yield('style')
 </head>
 <body>
     <div id="app">
-        <header id="header_mobile">
-            <div class="header_top_mobile">
-                <button id="zaebamba" class="btn btn-dark" type="button" >
-                    <a href="/" class="navbar-brand_mobile">
-                        <i class="fa fa-home" aria-hidden="true"></i>
-                    </a>
-                </button>
-                <button id="navbar-phone_mobile" class="btn btn-dark" type="button" >
-                    <a href="tel:+380 73 001 7705" class="navbar-phone_mobile">
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                    </a>
-                </button>
-                <button class="btn btn-dark" type="button" >
-                    <a href="tel:+380 970017705" class="navbar-phone_mobile">
-                        <i class="fa fa-phone-square"></i>
-                    </a>
-                </button>
-                <button class="btn btn-dark dropdown-toggle mobile_search_find" type="button" data-toggle="collapse" data-target="#navbar-search_mobile" aria-haspopup="true" aria-expanded="true">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-                <div id="navbar-search_mobile" class="dropdown-menu mobile_search collapse " style="">
-                    <form id="search_mini_form" class="clearfix" action = "/bestsearch/" method = "GET">
-                        <div class="formSearch">
-                            <div class="formControl">
-                                <input id="search" maxlength="100" type="text" name="s_search5" autocomplete="off" placeholder="Поиск по сайту...">
-                                <a href="#"></a>
-                            </div>
-                        </div>
-                        <div class="formSubmit">
-                            <input id="search_submit_mobile" type = "submit" name = "submit" value="" title="Поиск">
-                        </div>
-                    </form>
-                </div>
-                <button type="button" class="btn btn-dark mod_al" data-toggle="modal" data-target="#exampleModalLong">
-                    Доставка
-                </button>
-                <button id="User_mobile" class="btn btn-dark dropdown-toggle" type="button" data-toggle="collapse" data-target="#navbar-user_mobile" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                </button>
-
-                <div id="navbar-user_mobile" class="dropdown-menu user_mobile">
-                    <ul class="nav flex-column ">
-                        @guest
-                            <li><a href="/login"><i class="fa fa-lock"></i> Вход</a></li>
-                            <li><a href="/register"><i class="fa fa-address-card"></i> Регистрация</a></li>
-                        @else
-                            <li><a href="/cabinet"><i class="fa fa-user"></i> Аккаунт</a></li>
-                            <li><a href="/logout"><i class="fa fa-unlock"></i> Выход</a></li>
-                        @endguest
-                    </ul>
-                </div>
-                <button class="btn btn-dark count_mobile"  type="button" >
-                    <a href="/cart/">
-                        <i class="fa fa-shopping-cart"></i> (<span id="cart-count_mobile">0</span>)
-                    </a>
-                </button>
-                <!--Контактная информа-->
-                <div class="navbar navbar-inverse navbar-fixed-top">
-                    <div class="container">
-                        <a href="/" class="navbar-brand_mobile">
-                            <img class="lazy" src="data:image/gif;base64,R0lGODlh1wBDAIAAAP///wAAACH5BAEAAAEALAAAAADXAEMAAAKQjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusraylIAADs=" data-src="{{ asset('images/картель.png') }}" alt="" class="">
-                        </a>
-                        <div class="contact-info col-11 ">
-                            <ul class="nav nav-pills">
-                                <li class="mob_li">Работаем без выходных</li>
-                                <li></li>
-                            </ul>
-                        </div>
-                    </div>
-
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Оплата и доставка</h5>
-                                    <button type="button " class="close " data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <H4>Оплата за товар производится:</H4>
-                                    <h6>- Перечислением на банковскую карту (номер и сумму отправляем смс сообщением)</h6>
-                                    <h6>- Наложенным платежом.</h6>
-                                    Срок отправки товара с момента совершения заказа – до 3х дней.
-                                    Стоимость отправки зависит от тарифов перевозчика (Новая почта).
-                                    Обработка заказов – каждый день с 09.00 до 21.00
-                                    Если Вы не нашли из нашего ассортимента то, что Вас интересовало, свяжитесь с нами по номеру (+380)730017705 или (+380)970017705
-                                    <H4>Прочее</H4>
-                                    Вся продукция сертифицирована и имеет документальное подтверждение в виде сертификата соответствия (отправляется вместе с товаром по просьбе заказчика).
-                                    В соответствии с законодательством Украины в сфере алкогольной продукции, если алкогольный напиток крепостью до 8,5%, то он не подлежит акцизному маркированию.
-                                    Вся импортная продукция разливается не на территории Украины.
-                                    Этикетки, которые находятся на задней части бутылки (в некоторых случаях все этикетки на бутылке) заказываются компанией импортером и вместе с акцизными марками отправляются на завод изготовитель для последующей маркировки.
-                                    <H4>....</H4>
-                                    При предоставлении персональных данных на Сайте Магазина, Клиент дает свое добровольное согласие на обработку и использование (в том числе и передачу) своих персональных данных без ограничения срока действия такого согласия в соответствии с Законом Украины «О защите персональных данных» от 01.06.2010 г.
-                                    Cайт Магазина вправе использовать персональные данные Клиента для оказания определенных настоящим договором услуг, в том числе и при помощи автоматизированной обработки персональных данных.
-                                    Cайт Магазина берет на себя обязанность не разглашать персональные и контактные данные полученные от Клиента.
-                                    Клиент несет ответственность за несоответствие своих персональных данных действительности.
-                                    Cайт Магазина не несет ответственности за несоответствие персональных данных Клиента.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </header>
-
-        <header id="header">
+        <header id="header" v-if="!isMobile">
             <div class="focused"></div>
             <div class="header_top">
                 <div class="container">
@@ -290,7 +186,7 @@
     </div>
     </header>
         @yield('content_for_banners')
-        <main class="py-4">
+        <main class="py-4" id="desktop" v-if="!isMobile">
             <div class="container">
                 <div class="row">
                     @yield('content_right')
@@ -352,7 +248,7 @@
                 </div>
             </div>
         </div>
-    <footer id="footer"><!--Footer-->
+    <footer id="footer" v-if="!isMobile"><!--Footer-->
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
@@ -373,6 +269,19 @@
             </div>
         </div>
     </footer>
+        <header-mobile v-if="isMobile"
+                       :categories="{{ \App\Category::whereNull('parent')->get() }}"
+                       :guest=" @guest true @else false @endguest"
+        ></header-mobile>
+            <div class="mobile-body" v-if="isMobile">
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                      rel="stylesheet">
+                @if(isset($banners))
+                    <banners :banners="{{ $banners }}"></banners>
+                @endif
+                @yield('content-mobile')
+            </div>
+        <footer-mobile v-if="isMobile"></footer-mobile>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -380,7 +289,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
-
+<script src="{{ asset('js/app.js') }}"></script>
 <script>
     $(window).on('load', function() {
         setTimeout(function () {
@@ -421,6 +330,11 @@
 
 <script type="text/javascript">
     $(function(){
+        if(screen.width <= 600){
+            // $('#header').remove();
+            // $('#footer').remove();
+            // $('#desktop').remove();
+        }
         getBasket();
     });
 

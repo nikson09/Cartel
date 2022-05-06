@@ -170,20 +170,20 @@
                 </div>
             </div><!--Корзина и авторизация-->
 
-    <div class="container">
-        <div class="journal-menu">
-            <ul class="super-menu mobile-menu menu-floated">
-                @foreach(\App\BarMenu::where('active', true)->get() as $barMenu)
-                <li class="drop-down float-left main-menu-item-1">
-                    <a href="{{ $barMenu->href }}" style="background-image: url({{ Storage::url('public/bar-menu/'. $barMenu->image) }});">
-                        <span class="main-menu-text">{{ $barMenu->name }}</span>
-                    </a>
-                    <span class="mobile-plus">+</span>
-                </li>
-                @endforeach
-            </ul>
-        </div><!--Главное меню Алкоголя-->
-    </div>
+        <div class="container">
+            <div class="journal-menu">
+                <ul class="super-menu mobile-menu menu-floated">
+                    @foreach(\App\BarMenu::where('active', true)->get() as $barMenu)
+                    <li class="drop-down float-left main-menu-item-1">
+                        <a href="{{ $barMenu->href }}" style="background-image: url({{ Storage::url('public/bar-menu/'. $barMenu->image) }});">
+                            <span class="main-menu-text">{{ $barMenu->name }}</span>
+                        </a>
+                        <span class="mobile-plus">+</span>
+                    </li>
+                    @endforeach
+                </ul>
+            </div><!--Главное меню Алкоголя-->
+        </div>
     </header>
         @yield('content_for_banners')
         <main class="py-4" id="desktop" v-if="!isMobile">

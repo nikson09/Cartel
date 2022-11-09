@@ -72,7 +72,6 @@ class CheckoutController extends Controller
         $cities = '';
         $departaments = '';
         $regions = $this->getRegionsCheckout();
-        dd($regions);
         if(!empty($user)){
             $cities = !empty($user->region) ? $this->getRegionCitiesCheckout($user->region) : [];
             $departaments = !empty($user->region) && !empty($user->cities) ? $this->getPostalOfficesCheckout($user->cities, $user->region) : [];

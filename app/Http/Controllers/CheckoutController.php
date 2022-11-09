@@ -65,13 +65,14 @@ class CheckoutController extends Controller
 
         $categories = Category::where([
             'status' => true
-        ])->whereNull('parent')->get();
+        ])->whereNull('parent')->orderBy('sort_order', 'Asc')->get();
 
         $user = auth()->user();
 
         $cities = '';
         $departaments = '';
         $regions = $this->getRegionsCheckout();
+        dd($regions);
         if(!empty($user)){
             $cities = !empty($user->region) ? $this->getRegionCitiesCheckout($user->region) : [];
             $departaments = !empty($user->region) && !empty($user->cities) ? $this->getPostalOfficesCheckout($user->cities, $user->region) : [];
@@ -293,7 +294,7 @@ class CheckoutController extends Controller
 
         $categories = Category::where([
             'status' => true
-        ])->whereNull('parent')->get();
+        ])->whereNull('parent')->orderBy('sort_order', 'Asc')->get();
 
         return view('success', [
             'categories' => $categories

@@ -48,7 +48,7 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         $categories = Category::where('status', true)->get();
-        $barMenus   = BarMenu::where('active', true)->get();
+        $barMenus   = BarMenu::where('active', true)->orderBy('sort_order', 'Asc')->get();
 
         return view('auth.login', compact(['categories', 'barMenus']));
     }

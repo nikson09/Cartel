@@ -21,8 +21,8 @@ class HomeController extends Controller
     {
         $categories = Category::where([
             'status' => true
-            ])->whereNull('parent')->get();
-        $barMenus   = BarMenu::where('active', true)->get();
+            ])->whereNull('parent')->orderBy('sort_order', 'Asc')->get();
+        $barMenus   = BarMenu::where('active', true)->orderBy('sort_order', 'Asc')->get();
         $latestProducts = Product::with(['country', 'category', 'brand'])->where(['is_new' => true])->get();
         $recommendedProducts = Product::with(['country', 'category', 'brand'])->where(['is_recomended' => true])->get();
         $banners = Baner::whereHas('bannerRelation', function ($query) {

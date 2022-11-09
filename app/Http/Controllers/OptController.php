@@ -16,8 +16,8 @@ class OptController extends Controller
     {
         $categories = Category::where([
             'status' => true
-        ])->whereNull('parent')->get();
-        $barMenus   = BarMenu::where('active', true)->get();
+        ])->whereNull('parent')->orderBy('sort_order', 'Asc')->get();
+        $barMenus   = BarMenu::where('active', true)->orderBy('sort_order', 'Asc')->get();
         $products = Product::all();
         $user = auth()->user();
 

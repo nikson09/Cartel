@@ -132,10 +132,9 @@
         </div>
     </div>
 @endsection
+@section('content-mobile')
+    <categories :products="{{ \App\Product::where('category_id', $category->id)->skip(($products->currentPage() - 1) * 9)->take(9)->get() ?? [] }}" :category="{{ $category ?? [] }}"></categories>
+@endsection
 @section('scripts')
-    <script type="text/javascript">
-        $(document).ready(function(){
-            console.log("Саша , я тебя люблю, ты выйдешь за меня?");
-        });
-    </script>
+
 @endsection

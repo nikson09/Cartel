@@ -40,6 +40,7 @@ Vue.component('header-mobile', require('./components/Pages/layouts/Header.vue').
 Vue.component('footer-mobile', require('./components/Pages/layouts/Footer.vue').default);
 Vue.component('banners', require('./components/Pages/layouts/Banners.vue').default);
 Vue.component('home', require('./components/Pages/Home.vue').default);
+Vue.component('categories', require('./components/Pages/Categories.vue').default);
 Vue.component('basket', require('./components/Basket.vue').default);
 Vue.component('product', require('./components/ProductCard.vue').default);
 /**

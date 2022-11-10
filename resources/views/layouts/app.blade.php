@@ -173,7 +173,7 @@
         <div class="container">
             <div class="journal-menu">
                 <ul class="super-menu mobile-menu menu-floated">
-                    @foreach(\App\BarMenu::where('active', true)->get() as $barMenu)
+                    @foreach(\App\BarMenu::where('active', true)->orderBy('sort_order', 'Asc')->get() as $barMenu)
                     <li class="drop-down float-left main-menu-item-1">
                         <a href="{{ $barMenu->href }}" style="background-image: url({{ Storage::url('public/bar-menu/'. $barMenu->image) }});">
                             <span class="main-menu-text">{{ $barMenu->name }}</span>
@@ -327,6 +327,21 @@
 <script src="{{ asset('js/jquery.cycle2.carousel.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
+
+<script>
+    export default {
+        methods: {
+            showLoading()
+            {
+                $("#loader").show();
+            },
+            hideLoading()
+            {
+                $("#loader").delay(0.50).fadeOut().hide();
+            }
+        }
+    }
+</script>
 
 <script type="text/javascript">
     $(function(){

@@ -5,9 +5,18 @@
             <div class="left">
                 <div class="details">
                     <h1>{{ product.name }}</h1>
-                    <p>{{ product.sum }} грн</p>
+                    <span class="country_span">
+                        <img :src="'https://cartelhookah.com.ua/storage/countries/'+(product['country']['image'])" alt="" class="country_image" style="margin-right: 0.3vw;">
+                        <div class="d-flex" style="width: 29vw;">
+                            <a :href="'/country/'+product['country']['id']" class="link">{{product['country']['site_name']}} |&ensp;</a>
+                            <a :href="'/pod_categorys/'+product['brand']['id']"> {{product['brand']['name']}}</a>
+                        </div>
+                    </span>
+                    <p style="width: 26vw;">{{ product.sum }} грн</p>
                 </div>
-                <div class="buy"><i class="material-icons">add_shopping_cart</i></div>
+                <div class="buy" @click="addToCart(product.id)">
+                    <i class="material-icons">add_shopping_cart</i>
+                </div>
             </div>
         </div>
     </div>
@@ -16,11 +25,27 @@
 <script>
 export default {
     name: "ProductCard.vue",
-    props: ['product']
+    props: [
+        'product'
+    ],
+    methods: {
+        addToCart(id)
+        {
+
+
+        }
+    }
 }
 </script>
 
 <style scoped lang="scss">
+.country_image{
+    height: 5vw;
+    width: auto;
+}
+.country_span{
+    height: 15vw;
+}
 html, body{
     background: #E3E3D8;
     font-family: sans-serif;
@@ -43,7 +68,7 @@ html, body{
     }
 
         .top{
-            height: 70%;
+            height: 50%;
             width: 100%;
             -webkit-background-size: 100% !important;
             -moz-background-size: 100% !important;
@@ -52,7 +77,7 @@ html, body{
         }
         .bottom{
             width: 200%;
-            height: 30%;
+            height: 50%;
             transition: transform 0.5s;
             &.clicked{
                 transform: translateX(-50%);
@@ -93,6 +118,8 @@ html, body{
                         padding: 5vw;
                         color: #254053;
                         transition: transform 0.5s;
+                        padding-left: 2vw;
+                        padding-top: 12vw;
                     }
                     &:hover{
                         background: #A6CDDE;

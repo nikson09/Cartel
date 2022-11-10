@@ -170,9 +170,5 @@
 
 @endsection
 @section('scripts')
-<script type="text/javascript">
-    $(document).ready(function(){
-        console.log("Саша , я тебя люблю, ты выйдешь за меня?");
-    });
-</script>
+
 @endsection

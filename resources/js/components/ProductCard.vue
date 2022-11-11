@@ -6,8 +6,8 @@
                 <div class="details">
                     <h1>{{ product.name }}</h1>
                     <span class="country_span">
-                        <img :src="'https://cartelhookah.com.ua/storage/countries/'+(product['country']['image'])" alt="" class="country_image" style="margin-right: 0.3vw;">
-                        <div class="d-flex" style="width: 29vw;">
+                        <img :src="'https://cartelhookah.com.ua/storage/countries/'+(product['country'] ? product['country']['image'] : '')" alt="" class="country_image" style="margin-right: 0.3vw;">
+                        <div class="d-flex" style="width: 29vw;font-size: 3vw;">
                             <a :href="'/country/'+product['country']['id']" class="link">{{product['country']['site_name']}} |&ensp;</a>
                             <a :href="'/pod_categorys/'+product['brand']['id']"> {{product['brand']['name']}}</a>
                         </div>
@@ -54,7 +54,7 @@ html, body{
 
 .wrapper{
     width: 57vw;
-    height: 68vw;
+    height: 80vw;
     background: white;
     margin: auto;
     position: relative;
@@ -68,7 +68,7 @@ html, body{
     }
 
         .top{
-            height: 50%;
+            height: 55%;
             width: 100%;
             -webkit-background-size: 100% !important;
             -moz-background-size: 100% !important;
@@ -83,11 +83,11 @@ html, body{
                 transform: translateX(-50%);
             }
             h1{
-                margin:0;
-                padding:0;
-                font-size: 5vw;
+                margin: 0;
+                padding: 0;
+                font-size: 4vw;
                 font-weight: 700;
-                height: 12vw;
+                height: 14vw;
                 overflow: hidden;
                 width: 30vw;
             }

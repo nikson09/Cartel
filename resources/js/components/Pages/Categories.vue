@@ -39,7 +39,7 @@ export default {
         'countries'
     ],
     mounted() {
-        console.log(this.brands);
+        console.log(this.brands, brands.length > 0, brands.length);
     }
 }
 </script>

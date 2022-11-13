@@ -133,7 +133,12 @@
     </div>
 @endsection
 @section('content-mobile')
-    <categories :products="{{ \App\Product::where('category_id', $category->id)->with(['country', 'category', 'brand'])->skip(($products->currentPage() - 1) * 9)->take(9)->get() ?? [] }}" :category="{{ $category ?? [] }}"></categories>
+    <categories :products="{{ \App\Product::where('category_id', $category->id)->with(['country', 'category', 'brand'])->skip(($products->currentPage() - 1) * 9)->take(9)->get() ?? [] }}"
+                :category="{{ $category ?? [] }}"
+                :podCategories="{{ json_encode($podCategories) }}"
+                :brands="{{ json_encode($productBrands) }}"
+                :countries="{{ json_encode($productCountries)  }}"
+                ></categories>
 @endsection
 @section('scripts')
 

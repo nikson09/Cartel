@@ -19,7 +19,7 @@
             </b-dropdown>
         </div>
         <div class="recomended_products">
-            <h2 class="text-left">{{ category['name'] }}</h2>
+            <h2 class="text-left">{{ country['name'] }}</h2>
             <div class="col-12" style="display: flex;
     overflow-x: scroll;flex-wrap: wrap;" v-if="products">
                 <product v-if="products.length > 0" v-for="(item, key) in products" :product="item" :key="key" class="col-6 recomended_item" style="padding: 0;"></product>
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-    name: "Categories",
+    name: "Country",
     props: {
         products: {
             default: []
@@ -39,6 +39,9 @@ export default {
             default: []
         },
         podCategories: {
+            default: []
+        },
+        country: {
             default: []
         },
         brands: {

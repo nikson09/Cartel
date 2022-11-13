@@ -13,7 +13,7 @@
                             <div class="col-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
-                                        <div class="productinfo text-center {{ $product['quantity'] > 0 ? '' : 'productHasRunOut' }}"">
+                                        <div class="productinfo text-center {{ $product['quantity'] > 0 ? '' : 'productHasRunOut' }}">
                                             @if ($product['is_sales'])
                                                 <span class="discount_date">
                                                     до {{ $product['discount_date'] }}</span>
@@ -77,6 +77,18 @@
                 </div>
             </div>
         </div>
+        @endsection
+        @section('content-mobile')
+            <country :products="{{ \App\Product::where([
+                'category_id' => $category->id,
+                'country_id' => $country->id
+        ])->with(['country', 'category', 'brand'])->skip(($products->currentPage() - 1) * 9)->take(9)->get() ?? [] }}"
+                    :category="{{ $category ?? [] }}"
+                    :country="{{ $country ?? [] }}"
+                    :podCategories="{{ json_encode($podCategories) }}"
+                    :brands="{{ json_encode($productBrands) }}"
+                    :countries="{{ json_encode($productCountries)  }}"
+            ></country>
         @endsection
         @section('scripts')
 

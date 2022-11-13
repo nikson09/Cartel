@@ -78,6 +78,18 @@
             </div>
         </div>
         @endsection
+        @section('content-mobile')
+            <brands :products="{{ \App\Product::where([
+                'category_id' => $category->id,
+                'brand_id' => $brand->id
+        ])->with(['country', 'category', 'brand'])->skip(($products->currentPage() - 1) * 9)->take(9)->get() ?? [] }}"
+                        :category="{{ $category ?? [] }}"
+                        :brand="{{ $brand ?? [] }}"
+                        :podCategories="{{ json_encode($podCategories) }}"
+                        :brands="{{ json_encode($productBrands) }}"
+                    :countries="{{ json_encode($productCountries)  }}"
+            ></brands>
+        @endsection
         @section('scripts')
             <script type="text/javascript">
 

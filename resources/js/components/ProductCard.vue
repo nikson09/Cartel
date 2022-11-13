@@ -8,8 +8,8 @@
         <span v-else class="discount_none"></span>
         <img  v-if="product['quantity'] > 0" src="/images/templates/in_stock.png" class="quantity_product" alt="" />
         <img v-else src="/images/templates/under_the_order.png" class="quantity_product" alt="" />
-        <img v-if="product['is_new']" src="/images/new.png" class="new" alt="" />
-        <span v-if="product['is_sales']" class="product__discount">-{{ product['discount_percent'] }}%</span>
+        <img v-if="product['is_new'] == 1" src="/images/new.png" class="new" alt="" />
+        <span v-if="product['is_sales'] == 1" class="product__discount">-{{ product['discount_percent'] }}%</span>
         <div class="top" :style="'background: url(/storage/products/'+ product.image +') no-repeat center center;'"></div>
         <div class="bottom">
             <div class="left">
@@ -22,7 +22,7 @@
                             <a :href="'/pod_categorys/'+product['brand']['id']"> {{product['brand']['name']}}</a>
                         </div>
                     </span>
-                    <p v-if="product['is_sales']" style="width: 26vw;display: grid;"><span class="old_sum">{{product.sum}} грн</span><span class="red">{{ product.discount_sum }} грн</span></p>
+                    <p v-if="product['is_sales'] == 1" style="width: 26vw;display: grid;"><span class="old_sum">{{product.sum}} грн</span><span class="red">{{ product.discount_sum }} грн</span></p>
                     <p v-else style="width: 26vw;display: grid;">{{ product.sum }} грн</p>
                 </div>
                 <div class="buy" @click="addToCart(product.id)">

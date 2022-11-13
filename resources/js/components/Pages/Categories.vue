@@ -39,7 +39,7 @@ export default {
         'countries'
     ],
     mounted() {
-        console.log(this.podCategories);
+        console.log(this.brands);
     }
 }
 </script>

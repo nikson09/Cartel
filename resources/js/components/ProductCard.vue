@@ -3,9 +3,9 @@
         <span class="discount_date" style="width: 20vw;
     overflow: hidden;
     margin-left: 0;
-    left: 15vw;" v-if="product['is_sales']">
+    left: 15vw;" v-if="product['is_sales'] == 'true' || product['is_sales'] == '1'">
                                                     до {{ product['discount_date'] }}</span>
-        <span v-if="!product['is_sales']" class="discount_none"></span>
+        <span v-else class="discount_none"></span>
         <img  v-if="product['quantity'] > 0" src="/images/templates/in_stock.png" class="quantity_product" alt="" />
         <img v-else src="/images/templates/under_the_order.png" class="quantity_product" alt="" />
         <img v-if="product['is_new']" src="/images/new.png" class="new" alt="" />
@@ -45,6 +45,9 @@ export default {
 
 
         }
+    },
+    mounted() {
+        console.log(this.product);
     }
 }
 </script>

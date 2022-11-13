@@ -31,26 +31,14 @@
 <script>
 export default {
     name: "Brands",
-    props: {
-        products: {
-            default: []
-        },
-        category: {
-            default: []
-        },
-        podCategories: {
-            default: []
-        },
-        brand: {
-            default: []
-        },
-        brands: {
-            default: []
-        },
-        countries: {
-            default: []
-        }
-    }
+    props: [
+        'products',
+        'category',
+        'podCategories',
+        'brands',
+        'countries',
+        'brand'
+    ]
 }
 </script>
 

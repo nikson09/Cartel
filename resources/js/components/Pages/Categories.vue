@@ -31,23 +31,13 @@
 <script>
 export default {
     name: "Categories",
-    props: {
-        products: {
-            default: []
-        },
-        category: {
-            default: []
-        },
-        podCategories: {
-            default: []
-        },
-        brands: {
-            default: []
-        },
-        countries: {
-            default: []
-        }
-    },
+    props: [
+        'products',
+        'category',
+        'podCategories',
+        'brands',
+        'countries'
+    ],
     mounted() {
         console.log(this.podCategories);
     }

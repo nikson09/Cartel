@@ -18,8 +18,8 @@
                     <span class="country_span">
                         <img :src="'https://cartelhookah.com.ua/storage/countries/'+(product['country'] ? product['country']['image'] : '')" alt="" class="country_image" style="margin-right: 0.3vw;">
                         <div class="d-flex" style="width: 29vw;font-size: 3vw;">
-                            <a :href="'/country/'+product['country']['id']" class="link">{{product['country']['site_name']}} |&ensp;</a>
-                            <a :href="'/pod_categorys/'+product['brand']['id']"> {{product['brand']['name']}}</a>
+                            <a :href="'/country/'+product['country']['id']+'/category/'+ product['category']['id']" class="link">{{product['country']['site_name']}} |&ensp;</a>
+                            <a :href="'/brand/' + product['brand']['id'] +'/category/'+ product['category']['id']"> {{product['brand']['name']}}</a>
                         </div>
                     </span>
                     <p v-if="product['is_sales'] == 1" style="width: 26vw;display: grid;"><span class="old_sum">{{product.sum}} грн</span><span class="red">{{ product.discount_sum }} грн</span></p>

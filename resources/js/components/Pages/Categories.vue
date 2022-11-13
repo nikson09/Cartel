@@ -47,6 +47,9 @@ export default {
         countries: {
             default: []
         }
+    },
+    mounted() {
+        console.log(this.podCategories);
     }
 }
 </script>

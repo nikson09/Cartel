@@ -130,13 +130,13 @@
                                                         </a>
                                                     </p>
                                                     <span class="country">
-                                                        @if (!empty($product['country']))
-                                                            <img class='image_flag lazy' style="margin-right: 0.3vw;" src='data:image/gif;base64,R0lGODlhCAAFAIAAAP///wAAACH5BAEAAAEALAAAAAAIAAUAAAIFjI+py1gAOw==' data-src='{{ Storage::url('public/countries/'. $product['country']['image']) }}' alt='' /><a class='link' href="/country/{{ $product['country']['id'] }}">{{$product['country']['site_name']}} / </a>
+                                                    @if (!empty($product['country']))
+                                                            <img class='image_flag lazy' style="margin-right: 0.3vw;" src='data:image/gif;base64,R0lGODlhCAAFAIAAAP///wAAACH5BAEAAAEALAAAAAAIAAUAAAIFjI+py1gAOw==' data-src='{{ Storage::url('public/countries/'. $product['country']['image']) }}' alt='' /><a class='link' href="/country/{{ $product['country']['id'] }}/category/{{ $product['category']['id'] }}">{{$product['country']['site_name']}} / </a>
                                                         @endif
                                                         @if ($product['brand'])
-                                                            <a href="/pod_categorys/{{ $product['brand']['id'] }}">{{$product['brand']['name']}}</a>
+                                                            <a href="/brand/{{ $product['brand']['id'] }}/category/{{ $product['category']['id'] }}">{{$product['brand']['name']}}</a>
                                                         @endif
-                                                    </span>
+                                                </span>
                                                 </div>
                                                 <div class="But_add">
                                                     <div class="d-block" style="width: 50%">

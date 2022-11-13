@@ -2,7 +2,7 @@
     <div>
         <div class="d-flex w-100">
             <b-dropdown class="w-100 sub_categories" id="sub_categories_first_menu" text="Страны">
-                <div v-if="countries.length > 0">
+                <div v-if="countries">
                     <b-dropdown-item :href="'/country/'+item['id']+'/category/'+category['id']" v-for="(item, key) in countries" :key="key">{{ item['name'] }}</b-dropdown-item>
                 </div>
                 <div class="text-center" v-else>
@@ -10,7 +10,7 @@
                 </div>
             </b-dropdown>
             <b-dropdown class="w-100 sub_categories" id="sub_categories_second_menu" text="Бренды">
-                <div v-if="brands.length > 0">
+                <div v-if="brands">
                     <b-dropdown-item :href="'/brand/' + item['id'] +'/category/'+ category['id']" v-for="(item, key) in brands" :key="key">{{ item['name'] }}</b-dropdown-item>
                 </div>
                 <div class="text-center" v-else>
@@ -39,7 +39,7 @@ export default {
         'countries'
     ],
     mounted() {
-        console.log(this.brands, this.brands.length > 0, this.brands.length);
+
     }
 }
 </script>

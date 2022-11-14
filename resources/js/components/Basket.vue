@@ -18,11 +18,11 @@
                                     addMore(item.id)
                                 }" class="quantity-button quantity-button-increment">+</button>
                         </div>
-                        <div class="old-price" v-if="item.is_sales">
+                        <div class="old-price" v-if="item['is_sales'] == 1">
                             {{ item.sum }} грн
                         </div>
                         <div class="new-price">
-                            {{ item.is_sales ? item.discount_sum : item.sum }} грн
+                            {{ item.is_sales == 1 ? item.discount_sum : item.sum }} грн
                         </div>
                         <b-button  class="btn-outline-danger" style="color:red" variant="link" @click="removeAllFromBasket(item.id, item.isRelated)">Удалить с корзины</b-button>
                     </div>
@@ -44,11 +44,11 @@
                                     addMore(item.id)
                                 }" class="quantity-button quantity-button-increment">+</button>
                         </div>
-                        <div class="old-price" v-if="item.is_sales">
+                        <div class="old-price" v-if="item['is_sales'] == 1">
                             {{ item.sum }} грн
                         </div>
                         <div class="new-price">
-                            {{ item.is_sales ? item.discount_sum : item.sum }} грн
+                            {{ item.is_sales == 1 ? item.discount_sum : item.sum }} грн
                         </div>
                         <b-button class="btn-outline-danger" style="color:red" variant="link" @click="removeAllFromBasket(item.id, item.isRelated)">Удалить с корзины</b-button>
                     </div>

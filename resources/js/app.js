@@ -43,6 +43,8 @@ Vue.component('home', require('./components/Pages/Home.vue').default);
 Vue.component('categories', require('./components/Pages/Categories.vue').default);
 Vue.component('brands', require('./components/Pages/Brands.vue').default);
 Vue.component('country', require('./components/Pages/Country.vue').default);
+Vue.component('checkout', require('./components/Pages/Checkout.vue').default);
+Vue.component('order_success', require('./components/Pages/OrderSuccess.vue').default);
 Vue.component('product_view', require('./components/Pages/ProductView.vue').default);
 Vue.component('basket', require('./components/Basket.vue').default);
 Vue.component('product', require('./components/ProductCard.vue').default);

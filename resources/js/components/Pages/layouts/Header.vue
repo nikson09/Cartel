@@ -67,6 +67,13 @@
                             </span>
                             </div>
                         </b-nav-item>
+                        <b-nav-item :href="'/cabinet/orders'" class="">
+                            <div>
+                            <span class="text-muted">
+                              Заказы
+                            </span>
+                            </div>
+                        </b-nav-item>
                         <b-nav-item :href="'/logout'" class="">
                             <div>
                             <span class="text-muted">

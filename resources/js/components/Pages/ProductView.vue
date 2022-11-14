@@ -1,14 +1,14 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12" style="padding-top: 2vw">
+            <div class="col-12" style="padding: 2vw">
                 <h1 class="text-left">{{product['name']}}</h1>
                 <div class="row justify-content-center">
                     <div class="w_image_w img-thumbnail">
                         <span v-if="product['is_sales'] == 1" class="discount_date_w">
                                                 до {{ product['discount_date'] }}</span>
                         <img class="img_w" :src="'/storage/products/'+ product['image']" alt=""/>
-                        <span class="product__discount">-{{product['discount_percent']}}%</span>
+                        <span v-if="product['is_sales'] == 1" class="product__discount">-{{product['discount_percent']}}%</span>
                     </div>
                     <div class="product-about__right">
                         <img src="/images/new.jpg" class="newarrival" alt=""/>
@@ -16,7 +16,7 @@
                         <img v-else  src="/images/templates/under_the_order.png" class="quantity_product" alt="" />
                         <div class="product-about__block ng-star-inserted">
                             <div class="product-trade ng-star-inserted">
-                                <div class="product-prices__inner ng-star-inserted" v-if="product['is_sales']">
+                                <div class="product-prices__inner ng-star-inserted" v-if="product['is_sales'] == 1">
                                     <p class="product-prices__big product-prices__big_color_red"> {{ product['discount_sum']}} <span class="product-prices__symbol">грн</span>
                                     </p>
                                     <p class="product-prices__small ng-star-inserted">{{ product['sum']}} <small>грн</small>

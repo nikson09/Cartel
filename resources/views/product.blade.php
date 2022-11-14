@@ -153,6 +153,10 @@
         </div>
     </div>
 @endsection
+@section('content-mobile')
+    <product_view :product="{{$product}}"
+    ></product_view>
+@endsection
 @section('scripts')
     <script type="text/javascript">
         function minusProduct()

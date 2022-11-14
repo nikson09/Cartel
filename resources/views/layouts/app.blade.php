@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css"/>
     <style>
         .mobile-body{
-            min-height: 50vw;
+            min-height: 182vw;
         }
 
     </style>

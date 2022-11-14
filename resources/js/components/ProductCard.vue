@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" :class="product['quantity'] > 0 ? '' : 'productHasRunOut'">
         <span class="discount_date" style="width: 20vw;
     overflow: hidden;
     margin-left: 0;
@@ -10,11 +10,13 @@
         <img v-else src="/images/templates/under_the_order.png" class="quantity_product" alt="" />
         <img v-if="product['is_new'] == 1" src="/images/new.png" class="new" alt="" />
         <span v-if="product['is_sales'] == 1" class="product__discount">-{{ product['discount_percent'] }}%</span>
-        <div class="top" :style="'background: url(/storage/products/'+ product.image +') no-repeat center center;'"></div>
+        <a :href="'/product/'+product['id']">
+            <div class="top" :style="'background: url(/storage/products/'+ product.image +') no-repeat center center;'"></div>
+        </a>
         <div class="bottom">
             <div class="left">
                 <div class="details">
-                    <h1>{{ product.name }}</h1>
+                    <a :href="'/product/'+product['id']"><h1>{{ product.name }}</h1></a>
                     <span class="country_span">
                         <img :src="'https://cartelhookah.com.ua/storage/countries/'+(product['country'] ? product['country']['image'] : '')" alt="" class="country_image" style="margin-right: 0.3vw;">
                         <div class="d-flex" style="width: 29vw;font-size: 3vw;">
@@ -42,8 +44,19 @@ export default {
     methods: {
         addToCart(id)
         {
-
-
+            let quantity = 1;
+            axios.post('/addProductToBasket', {
+                quantity: quantity,
+                productId: id
+            }).then(response => {
+                swal({
+                    text: "Товар успешно добавлен в корзину!",
+                    icon: "success",
+                    buttons: false,
+                    timer: 1000
+                });
+                this.$parent.$parent.$children[0].getOrdersCount()
+            });
         }
     },
     mounted() {

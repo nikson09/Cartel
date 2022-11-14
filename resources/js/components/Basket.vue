@@ -10,13 +10,13 @@
                     <p class="right-side-text">{{ item.name }}</p>
                     <div class="product-text">
                         <div class="quantity-side">
-                            <button @click="removeOne(item.id)" class="quantity-button quantity-button-decrement"></button>
+                            <button @click="removeOne(item.id)" class="quantity-button quantity-button-decrement">-</button>
                             <div class="quantity-wrap">
                                 <input @keyup="changeQuantity($event, item.id)" @change="changeQuantity($event, item.id)" v-model="item.quantity "  type="number" min="0" max="99"> <span>шт</span>
                             </div>
                             <button @click="() => {
                                     addMore(item.id)
-                                }" class="quantity-button quantity-button-increment"></button>
+                                }" class="quantity-button quantity-button-increment">+</button>
                         </div>
                         <div class="old-price" v-if="item.is_sales">
                             {{ item.sum }} грн
@@ -36,13 +36,13 @@
                     <p class="right-side-text">{{ item.name }}<br>(По предзаказу)</p>
                     <div class="product-text">
                         <div class="quantity-side">
-                            <button @click="removeOne(item.id)" class="quantity-button quantity-button-decrement"></button>
+                            <button @click="removeOne(item.id)" class="quantity-button quantity-button-decrement">-</button>
                             <div class="quantity-wrap">
                                 <input @keyup="changeQuantity($event, item.id)" @change="changeQuantity($event, item.id)" v-model="item.quantity "  type="number" min="0" max="99"> <span>шт</span>
                             </div>
                             <button @click="() => {
                                     addMore(item.id)
-                                }" class="quantity-button quantity-button-increment"></button>
+                                }" class="quantity-button quantity-button-increment">+</button>
                         </div>
                         <div class="old-price" v-if="item.is_sales">
                             {{ item.sum }} грн

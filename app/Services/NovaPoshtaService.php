@@ -17,7 +17,7 @@ class NovaPoshtaService
 
     public function __construct()
     {
-        $this->api = new NovaPoshtaApi2(env('NOVA_POSHTA_KEY', '817ec4b853860628914aef2d6a3c160e'));
+        $this->api = new NovaPoshtaApi2(env('NOVA_POSHTA_KEY', 'b02137f7f2254a0161e3ddf2914d110b'));
     }
 
     public function getRegions($search = '')
@@ -28,6 +28,7 @@ class NovaPoshtaService
             $regions = $regions['data'];
         } catch (\Exception $e) {
             $regions = [];
+            dd($e->getMessage());
         }
         $regionsWithoutArk = [];
 

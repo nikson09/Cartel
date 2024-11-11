@@ -65,7 +65,7 @@
                                         <span  class="price">грн</span>
                                     </div>
                                     <div class="row justify-content-center">
-                                        <span class="count">Кол-во:
+                                        <span class="count row">Кол-во:
                                             <button class="down btn btn-default checkout" onclick="minusProduct()">
                                                 <i class="fa fa-minus"></i>
                                             </button>

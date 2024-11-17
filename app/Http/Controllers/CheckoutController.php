@@ -225,9 +225,14 @@ class CheckoutController extends Controller
                     'is_sales' => $product['is_sales'],
                 ]);
 
-                $product = Product::find($product['id']);
-                $product->quantity -= $product['quantity'];
-                $product->update();
+//                $product = Product::find($product['id']);
+//                $product->quantity -= $product['quantity'];
+//                $product->update();
+                $productModel = Product::find($product['id']);
+                if ($productModel) {
+                    $productModel->quantity -= $product['quantity'];
+                    $productModel->update();
+                }
             }
 
             foreach($notRelatedProducts as $product){

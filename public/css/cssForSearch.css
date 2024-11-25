@@ -1,0 +1,89 @@
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 50%; /* Центрируем относительно поля */
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    width: 50%; /* Половина ширины родителя */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+    background: #f5f5f5;
+}
+
+.search-result-image {
+    width: 60px; /* Увеличиваем размер картинки */
+    height: 60px;
+    object-fit: cover;
+    margin-right: 15px; /* Увеличиваем отступ от текста */
+    border-radius: 6px; /* Немного более округлые края */
+}
+
+.search-result-name {
+    font-size: 14px;
+    flex: 1;
+    white-space: nowrap; /* Убираем перенос текста */
+    overflow: hidden; /* Обрезаем длинные названия */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+}
+
+.search-result-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 15px;
+}
+
+.original-price {
+    font-size: 14px;
+    color:rgb(248, 78, 84) ;
+    text-decoration: line-through;
+    margin-right: 20px;
+
+}
+
+.discount-percent {
+    font-size: 12px;
+    color: rgb(193, 123, 0);
+    font-weight: bold;
+    margin-right: 20px;
+
+}
+
+.discounted-price {
+    font-size: 16px;
+    color: #27ae60;
+    font-weight: bold;
+    margin-right: 20px;
+
+}
+
+.price {
+    font-size: 16px;
+    color: #27ae60;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.search-no-results {
+    padding: 10px;
+    text-align: center;
+    color: #777;
+}

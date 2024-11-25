@@ -12,7 +12,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 // If you don't need the styles, do not connect
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
 // import 'bootstrap/dist/css/bootstrap.css'
 // import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -34,7 +34,7 @@ Vue.use(BootstrapVue);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('opt-table', require('./components/OptTable.vue').default);
 Vue.component('header-mobile', require('./components/Pages/layouts/Header.vue').default);
 Vue.component('footer-mobile', require('./components/Pages/layouts/Footer.vue').default);
@@ -48,6 +48,16 @@ Vue.component('order_success', require('./components/Pages/OrderSuccess.vue').de
 Vue.component('product_view', require('./components/Pages/ProductView.vue').default);
 Vue.component('basket', require('./components/Basket.vue').default);
 Vue.component('product', require('./components/ProductCard.vue').default);
+Vue.component('product-main', require('./components/ProductMain.vue').default);
+Vue.component('test-product', require('./components/TestProduct.vue').default);
+Vue.component('search-product', require('./components/SearchProduct.vue').default);
+// Vue.component('Pagination', require('./components/Pagination.vue').default);
+// Vue.component('product-list', require('./components/ProductList.vue').default);
+Vue.component('filter-section', require('./components/FilterSection.vue').default);
+// Vue.component('filter-panel', require('./components/FilterPanel.vue').default);
+// Vue.component('product-cart', require('./components/ProductCart.vue').default);
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -57,8 +67,19 @@ Vue.component('product', require('./components/ProductCard.vue').default);
 const app = new Vue({
     el: '#app',
     computed: {
-        isMobile(){
+        isMobile() {
             return screen.width <= 600;
         }
+    }, methods: {
+        updateFilters(newFilters) {
+
+            this.filters = newFilters;
+            this.fetchFilteredProducts();
+        },
+        fetchFilteredProducts() {
+            // Логика для получения отфильтрованных данных (например, через Axios)
+        },
     }
+
+
 });

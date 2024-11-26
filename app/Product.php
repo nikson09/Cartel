@@ -33,11 +33,20 @@ class Product extends Model
 
     public function getDiscountSumAttribute()
     {
-        $sum = 0;
-        if($this->attributes['is_sales']){
-            $sum = $this->attributes['sum'] - ($this->attributes['sum'] / 100 * $this->attributes['discount_percent']);
+//        $sum = 0;
+//        if($this->attributes['is_sales']){
+//            $sum = $this->attributes['sum'] - ($this->attributes['sum'] / 100 * $this->attributes['discount_percent']);
+//        }
+//
+//
+        $sum = $this->attributes['sum'];
+
+        if ($this->attributes['discount_percent'] > 0) {
+            $sum -= $sum * ($this->attributes['discount_percent'] / 100);
         }
 
         return ceil($sum);
+        //переделал потому что не работает отображает суму скидки если нет is_sales
+        //это для поиска
     }
 }
